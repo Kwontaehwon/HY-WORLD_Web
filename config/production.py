@@ -26,4 +26,4 @@ dictConfig({
         'level': 'INFO',
         'handlers': ['file']
     }
-})ㄴ
+})
