@@ -1,5 +1,5 @@
 from flask import Blueprint, url_for, current_app, jsonify, request
-from sqlalchemy import func
+from sqlalchemy import func, nullslast
 import datetime
 
 from .. import db
@@ -14,7 +14,7 @@ def environments():
         .group_by(question_voter.c.question_id).subquery()
     question_list = Question.query \
         .outerjoin(sub_query, Question.id == sub_query.c.question_id) \
-        .order_by(sub_query.c.num_voter.desc(), Question.create_date.desc())
+        .order_by(_nullslast(sub_query.c.num_voter.desc()), Question.create_date.desc())
     num = 0
     answer_list = []
     for question in question_list:
