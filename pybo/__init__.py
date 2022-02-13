@@ -20,6 +20,7 @@ def page_not_found(e):
 def create_app():
     app = Flask(__name__)
     app.config.from_envvar('APP_CONFIG_FILE')
+    app.config['JSON_AS_ASCII'] = False
 
     # ORM
     db.init_app(app)
