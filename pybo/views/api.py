@@ -7,6 +7,11 @@ from ..models import Question, question_voter
 
 bp = Blueprint('api', __name__, url_prefix='/api')
 
+def _nullslast(obj):
+    if current_app.config['SQLALCHEMY_DATABASE_URI'].startswith("sqlite"):
+        return obj
+    else:
+        return nullslast(obj)
 
 @bp.route('/hotboard')
 def environments():
@@ -20,11 +25,8 @@ def environments():
     for question in question_list:
         date_diff = (datetime.datetime.now() - question.create_date)
         if date_diff < datetime.timedelta(days=7) and num < 4:
-            answer_list.append(question)
-    json_list = []
-    for answer in answer_list:
-        json_list.append(answer.subject)
-    return jsonify(json_list)
+            answer_list.append(question.subject)
+    return jsonify({"subject" : answer_list})
 
 
 @bp.route('/test', methods = ['POST'])
