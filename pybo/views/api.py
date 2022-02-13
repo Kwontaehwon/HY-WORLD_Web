@@ -19,14 +19,17 @@ def environments():
         .group_by(question_voter.c.question_id).subquery()
     question_list = Question.query \
         .outerjoin(sub_query, Question.id == sub_query.c.question_id) \
-        .order_by(_nullslast(sub_query.c.num_voter.desc()), Question.create_date.desc())
+        .order_by(sub_query.c.num_voter.desc(), Question.create_date.desc())
     num = 0
     answer_list = []
     for question in question_list:
         date_diff = (datetime.datetime.now() - question.create_date)
         if date_diff < datetime.timedelta(days=7) and num < 4:
-            answer_list.append(question.subject)
-    return jsonify({"subject" : answer_list})
+            answer_list.append(question)
+    json_list = []
+    for answer in answer_list:
+        json_list.append(answer.subject)
+    return jsonify({"result" : json_list})
 
 
 @bp.route('/test', methods = ['POST'])
