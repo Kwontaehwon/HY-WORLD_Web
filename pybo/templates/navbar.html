@@ -22,5 +22,14 @@
             </li>
         </ul>
         {% endif %}
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <ul class="navbar-nav">
+            <li class="nav-item ">
+                <a class="nav-link" href="{{ url_for('question.classify', category='general') }}">자유게시판</a>
+            </li>
+            <li class="nav-item ">
+                <a class="nav-link" href="{{ url_for('question.classify', category='anonymous') }}">익명게시판</a>
+            </li>
+        </ul>
     </div>
 </nav>

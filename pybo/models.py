@@ -13,6 +13,12 @@ answer_voter = db.Table(
 )
 
 
+class Category(db.Model):
+    category_name = db.Column(db.String(20), primary_key=True)
+    description = db.Column(db.String(200), nullable=True)
+    has_answer = db.Column(db.Boolean, default=True)
+
+
 class Question(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     subject = db.Column(db.String(200), nullable=False)
@@ -22,6 +28,7 @@ class Question(db.Model):
     user = db.relationship('User', backref=db.backref('question_set'))
     modify_date = db.Column(db.DateTime(), nullable=True)
     voter = db.relationship('User', secondary=question_voter, backref=db.backref('question_voter_set'))
+    category = db.Column(db.String(20), db.ForeignKey('category.category_name'))
 
 
 class Answer(db.Model):
