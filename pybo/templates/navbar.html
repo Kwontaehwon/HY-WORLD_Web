@@ -1,35 +1,128 @@
-<!-- 네비게이션바 -->
-<nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
-    <a class="navbar-brand" href="{{ url_for('main.index') }}">HY-WORLD</a>
-    <button class="navbar-toggler ml-auto" type="button" data-toggle="collapse" data-target="#navbarNav"
-        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse flex-grow-0" id="navbarNav">
-        {% if g.user %}
-        <ul class="navbar-nav">
-            <li class="nav-item ">
-                <a class="nav-link" href="{{ url_for('auth.logout') }}">{{ g.user.username }} (로그아웃)</a>
-            </li>
-        </ul>
-        {% else %}
-        <ul class="navbar-nav">
-            <li class="nav-item ">
-                <a class="nav-link" href="{{ url_for('auth.signup') }}">계정생성</a>
-            </li>
-            <li class="nav-item ">
-                <a class="nav-link" href="{{ url_for('auth.login') }}">로그인</a>
-            </li>
-        </ul>
-        {% endif %}
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        <ul class="navbar-nav">
-            <li class="nav-item ">
-                <a class="nav-link" href="{{ url_for('question.classify', category='general') }}">자유게시판</a>
-            </li>
-            <li class="nav-item ">
-                <a class="nav-link" href="{{ url_for('question.classify', category='anonymous') }}">익명게시판</a>
-            </li>
-        </ul>
+<!doctype html>
+<html lang="en">
+   <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='navbar-style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Nunito&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/f1364fd64f.js"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='navbar-js.js') }}"></script>
+    <title>Home</title>
+  </head>
+  <body>
+  <header>
+    <section class="head bg-white">
+      <div class="container">
+        <div class="row">
+          <div class="col-2 align-self-center drop">
+            <div class="dropdown">
+              <a href="{{ url_for('main.index')}}"><img src="{{ url_for('static', filename='img/message_icon1.svg') }}" class="img-fluid pr-2"></a>
+              <button class="btn font-weight-bold px-0" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                HY-WORLD
+                <i class="fas fa-angle-down ml-2"></i>
+              </button>
+              <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <a class="dropdown-item" href="#">Blog</a>
+                <a class="dropdown-item" href="#">About</a>
+                <a class="dropdown-item" href="#">Store</a>
+                <a class="dropdown-item" href="#">Mobile App</a>
+                <a class="dropdown-item" href="#">Advertise</a>
+                <a class="dropdown-item" href="#">Need Help</a>
+              </div>
+            </div>
+          </div>
+          <div class="col-6 d-flex justify-content-between align-self-center search">
+              &nbsp;
+              <span class="font-weight-bold align-self-center pl-3"> <a href="{{ url_for('question.classify', category='general') }}">자유게시판</a></span>
+              <span class="dropdown topic align-self-center pl-3"> <a href="{{ url_for('question.classify', category='anonymous') }}">정보게시판</a></span>
+              <span class="dropdown topic align-self-center pl-3"> <a href="#" style="color:black">홍보게시판</a></span>
+              <span class="dropdown topic align-self-center pl-3"> <a href="#" style="color:black">메타버스</a></span>
+              <span class="dropdown topic align-self-center pl-3"> <a href="#" style="color:black">시사이슈</a></span>
+              &nbsp;
+            </div>
+            <div class="col-4">
+              <div class="row">
+                <div class="dropdown topic align-self-center pl-3">
+                     &nbsp;
+                  <button class="btn px-2" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    MENU<i class="fas fa-bars ml-2"> </i>
+                  </button>
+                    &nbsp;
+                  <div class="dropdown-menu pt-2" aria-labelledby="dropdownMenu2">
+                   <div class="row pt-2">
+                      <div class="col-6">
+                         <ul class="px-0">
+                           <li><a href="#">Best</a></li>
+                           <li><a href="#">셔틀정보</a></li>
+                         </ul>
+                      </div>
+                      <div class="col-6">
+                         <ul class="px-0">
+                           <li><a href="#">강의평가</a></li>
+                           <li><a href="#">학식정보</a></li>
+                         </ul>
+                      </div>
+                    </div>
+                    <div class="row pt-2">
+                      <div class="col-6">
+                        <span>Categories</span>
+                         <ul class="px-3 categories">
+                           <li><a href="#">자유게시판</a></li>
+                           <li><a href="#">정보게시판</a></li>
+                           <li><a href="#">시사,이슈</a></li>
+                         </ul>
+                      </div>
+                      <div class="col-6 mt-4">
+                         <ul class="px-3 categories">
+                           <li><a href="#">홍보게시판</a></li>
+                           <li><a href="#">메타버스</a></li>
+                         </ul>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              {% if g.user %}
+                  <div class="row user-initial align-self-center">
+                    <div class="dropdown notification mx-2">
+                      <button class="btn notification" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                          <b>{{g.user.username}}</b> 님
+                       <i class="fas fa-chevron-down pl-2"></i>
+                      </button>
+                      <div class="dropdown-menu dropdown-menu-right py-0" aria-labelledby="dropdownMenuButton">
+                        <ul class="list-group list-group-horizontal px-4 pt-3 border-bottom pb-3">
+                          <li><a href="#"><i class="far fa-bookmark px-3 text-muted"></i></a></li>
+                          <li><a href="#"><i class="far fa-comment-alt px-3 text-muted"></i></a></li>
+                          <li><a href="#"><i class="fas fa-wrench px-3 text-muted"></i></a></li>
+                          <li><a href="#"><i class="fas fa-sign-out-alt px-3 text-muted"></i></a></li>
+                        </ul>
+                        <ul class="mb-0 pl-0 py-3">
+                          <li><a href="#"><p class="mb-1">Dashboard</p></a></li>
+                          <li><a href="#"><p class="mb-1">Badges</p></a></li>
+                          <li><a href="#"><p class="mb-1">My Grpups</p></a></li>
+                          <li><a href="#"><p class="mb-1">Notifications</p></a></li>
+                          <li><a href="#"><p class="mb-1">Topics</p></a></li>
+                          <li><a href="#"><p class="mb-1">Likes</p></a></li>
+                          <li><a href="#"><p class="mb-1">Solved</p></a></li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                <div class="img my-4 ml-3"><a href="{{ url_for('auth.logout') }}"><img src="{{ url_for('static', filename='img/logout.png') }}"></a></div>
+              {% else %}
+                <div class="img my-4 ml-3"><a href="{{ url_for('auth.login') }}"><img src="{{ url_for('static', filename='img/login.png') }}"></a></div>
+                <div class="img my-4 ml-3"><a href="{{ url_for('auth.signup') }}"><img src="{{ url_for('static', filename='img/signup.png') }}"></a></div>
+              {% endif %}
+
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
-</nav>
+    </section>
+   </header>
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+  </body>
+  </html>
