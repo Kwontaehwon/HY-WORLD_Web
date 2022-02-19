@@ -17,6 +17,16 @@
                    value="{{ form.subject.data or '' }}">
         </div>
         <div class="form-group">
+            <label for="category">게시판 선택</label>
+            <select class="form-control" name="category" id="category" value="{{ form.subject.data or '' }}">
+                <option value="general" >자유게시판</option>
+                <option value="information">정보게시판</option>
+                <option value="promotion">홍보게시판</option>
+                <option value="metaverse">메타버스</option>
+                <option value="issue">시사 이슈</option>
+            </select>
+        </div>
+        <div class="form-group">
             <label for="content">내용</label>
             <textarea class="form-control" name="content"
                       id="content" rows="10">{{ form.content.data or '' }}</textarea>

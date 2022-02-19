@@ -34,11 +34,11 @@
           </div>
           <div class="col-6 d-flex justify-content-between align-self-center search">
               &nbsp;
-              <span class="font-weight-bold align-self-center pl-3"> <a href="{{ url_for('question.classify', category='general') }}">자유게시판</a></span>
-              <span class="font-weight-bold topic align-self-center pl-3"> <a href="{{ url_for('question.classify', category='anonymous') }}">정보게시판</a></span>
-              <span class="dropdown topic align-self-center pl-3"> <a href="#" style="color:black">홍보게시판</a></span>
-              <span class="dropdown topic align-self-center pl-3"> <a href="#" style="color:black">메타버스</a></span>
-              <span class="dropdown topic align-self-center pl-3"> <a href="#" style="color:black">시사이슈</a></span>
+              <span class="font-weight-bold topic align-self-center pl-3"> <a href="{{ url_for('question.classify', category='general') }}">자유게시판</a></span>
+              <span class="font-weight-bold topic align-self-center pl-3"> <a href="{{ url_for('question.classify', category='information') }}">정보게시판</a></span>
+              <span class="font-weight-bold topic align-self-center pl-3"> <a href="{{ url_for('question.classify', category='promotion') }}">홍보게시판</a></span>
+              <span class="font-weight-bold topic align-self-center pl-3"> <a href="{{ url_for('question.classify', category='metaverse') }}">메타버스</a></span>
+              <span class="font-weight-bold topic align-self-center pl-3"> <a href="{{ url_for('question.classify', category='issue') }}">시사이슈</a></span>
               &nbsp;
             </div>
             <div class="col-4">
@@ -69,7 +69,7 @@
                         <span>Categories</span>
                          <ul class="px-3 categories">
                            <li><a href="{{ url_for('question.classify', category='general') }}">자유게시판</a></li>
-                           <li><a href="{{ url_for('question.classify', category='anonymous') }}">정보게시판</a></li>
+                           <li><a href="{{ url_for('question.classify', category='information') }}">정보게시판</a></li>
                            <li><a href="#">시사,이슈</a></li>
                          </ul>
                       </div>

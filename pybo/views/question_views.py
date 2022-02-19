@@ -119,7 +119,7 @@ def detail(question_id):
 def create():
     form = QuestionForm()
     if request.method == 'POST' and form.validate_on_submit():
-        question = Question(subject=form.subject.data, content=form.content.data,
+        question = Question(subject=form.subject.data, content=form.content.data, category=form.category.data,
                             create_date=datetime.now(), user=g.user)
         db.session.add(question)
         db.session.commit()
