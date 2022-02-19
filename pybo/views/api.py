@@ -1,9 +1,10 @@
 from flask import Blueprint, url_for, current_app, jsonify, request
 from sqlalchemy import func, nullslast
 import datetime
+from werkzeug.security import  check_password_hash
 
 from .. import db
-from ..models import Question, question_voter
+from ..models import Question, question_voter, User
 
 bp = Blueprint('api', __name__, url_prefix='/api')
 
@@ -32,7 +33,18 @@ def environments():
     return jsonify({"result" : json_list})
 
 
-@bp.route('/test', methods = ['POST'])
+@bp.route('/login', methods = ['POST'])
 def userLogin():
     user = request.get_json()#json 데이터를 받아옴
-    return jsonify(user)# 받아온 데이터를 다시 전송
+    user_id = user['userId']
+    user_pw = user['userPw']
+    error = None
+    user = User.query.filter_by(username=user_id).first()
+    if not user:
+        error = "존재하지 않는 사용자입니다."
+    elif not check_password_hash(user.password, user_pw):
+        error = "비밀번호가 올바르지 않습니다."
+    if error is None:
+        return jsonify({"result": "true"})
+    return jsonify({"result": error})
+    #return jsonify(user)# 받아온 데이터를 다시 전송
