@@ -70,13 +70,13 @@
                          <ul class="px-3 categories">
                            <li><a href="{{ url_for('question.classify', category='general') }}">자유게시판</a></li>
                            <li><a href="{{ url_for('question.classify', category='information') }}">정보게시판</a></li>
-                           <li><a href="#">시사,이슈</a></li>
+                           <li><a href="{{ url_for('question.classify', category='issue') }}">시사,이슈</a></li>
                          </ul>
                       </div>
                       <div class="col-6 mt-4">
                          <ul class="px-3 categories">
-                           <li><a href="#">홍보게시판</a></li>
-                           <li><a href="#">메타버스</a></li>
+                           <li><a href="{{ url_for('question.classify', category='promotion') }}">홍보게시판</a></li>
+                           <li><a href="{{ url_for('question.classify', category='metaverse') }}">메타버스</a></li>
                          </ul>
                       </div>
                     </div>
