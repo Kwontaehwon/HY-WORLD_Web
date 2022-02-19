@@ -1,4 +1,4 @@
-from datetime import datetime
+import datetime
 
 from flask import Blueprint, render_template, request, url_for, g, flash, current_app
 from sqlalchemy import func, nullslast
@@ -56,10 +56,21 @@ def _list():
                     sub_query.c.username.ilike(search)  # 답변작성자
                     ) \
             .distinct()
-
+    best_list = []
+    num = 0
+    sub_query = db.session.query(question_voter.c.question_id, func.count('*').label('num_voter')) \
+        .group_by(question_voter.c.question_id).subquery()
+    answer_list = Question.query \
+        .outerjoin(sub_query, Question.id == sub_query.c.question_id) \
+        .order_by(_nullslast(sub_query.c.num_voter.desc()), Question.create_date.desc())
+    for question in answer_list:
+        date_diff = (datetime.datetime.now() - question.create_date)
+        if date_diff < datetime.timedelta(days=7) and num < 3:
+            best_list.append(question)
+            num += 1
     # 페이징
     question_list = question_list.paginate(page, per_page=10)
-    return render_template('question/question_list.html', question_list=question_list, page=page, kw=kw, so=so)
+    return render_template('question/question_list.html', question_list=question_list, best_list = best_list, page=page, kw=kw, so=so)
 
 @bp.route('/list/<string:category>')
 def classify(category):
@@ -101,10 +112,16 @@ def classify(category):
                     sub_query.c.username.ilike(search)  # 답변작성자
                     ) \
             .distinct()
-
+    best_list = []
+    num = 0
+    for question in question_list:
+        date_diff = (datetime.datetime.now() - question.create_date)
+        if date_diff < datetime.timedelta(days=7) and num < 3:
+            best_list.append(question)
+            num += 1
     # 페이징
     question_list = question_list.paginate(page, per_page=10)
-    return render_template('question/question_list.html', question_list=question_list, page=page, kw=kw, so=so, category=category)
+    return render_template('question/question_list.html', question_list=question_list, best_list=best_list, page=page, kw=kw, so=so, category=category)
 
 
 @bp.route('/detail/<int:question_id>/')
@@ -120,7 +137,7 @@ def create():
     form = QuestionForm()
     if request.method == 'POST' and form.validate_on_submit():
         question = Question(subject=form.subject.data, content=form.content.data, category=form.category.data,
-                            create_date=datetime.now(), user=g.user)
+                            create_date=datetime.datetime.now(), user=g.user)
         db.session.add(question)
         db.session.commit()
         return redirect(url_for('main.index'))
@@ -138,7 +155,7 @@ def modify(question_id):
         form = QuestionForm()
         if form.validate_on_submit():
             form.populate_obj(question)
-            question.modify_date = datetime.now()  # 수정일시 저장
+            question.modify_date = datetime.datetime.now()  # 수정일시 저장
             db.session.commit()
             return redirect(url_for('question.detail', question_id=question_id))
     else:
