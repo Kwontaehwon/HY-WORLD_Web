@@ -13,6 +13,20 @@ answer_voter = db.Table(
 )
 
 
+class Favor(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    favor_date = db.Column(db.DateTime(), nullable=False)
+    building_id = db.Column(db.Integer, db.ForeignKey('building.id'))
+    building = db.relationship('Building', backref=db.backref('building_set'))
+    question = db.relationship('Question', backref=db.backref('favor_set'), uselist=False)
+    question_id = db.Column(db.Integer, db.ForeignKey('question.id', ondelete='CASCADE'))
+
+
+class Building(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    building_name = db.Column(db.String(20), nullable=False)
+
+
 class Category(db.Model):
     category_name = db.Column(db.String(20), primary_key=True)
     description = db.Column(db.String(200), nullable=True)
@@ -21,6 +35,7 @@ class Category(db.Model):
 
 class Question(db.Model):
     id = db.Column(db.Integer, primary_key=True)
+    is_favor = db.Column(db.Boolean, nullable=False)
     subject = db.Column(db.String(200), nullable=False)
     content = db.Column(db.Text(), nullable=False)
     create_date = db.Column(db.DateTime(), nullable=False)

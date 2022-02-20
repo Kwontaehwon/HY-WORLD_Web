@@ -110,7 +110,11 @@
             {% endif %}
         </ul>
         <!-- 페이징처리 끝 -->
-        <a href="{{ url_for('question.create') }}" class="btn btn-primary">질문 등록하기</a>
+        {% if category != "favor" %}
+            <a href="{{ url_for('question.create') }}" class="btn btn-primary">질문 등록하기</a>
+        {% else %}
+            <a href="{{ url_for('question.create_favor') }}" class="btn btn-primary" >도움 요청하기</a>
+        {%endif %}
     </div>
 </div>
     </div>

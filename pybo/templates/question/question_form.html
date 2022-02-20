@@ -16,16 +16,69 @@
             <input type="text" class="form-control" name="subject" id="subject"
                    value="{{ form.subject.data or '' }}">
         </div>
-        <div class="form-group">
-            <label for="category">게시판 선택</label>
-            <select class="form-control" name="category" id="category" value="{{ form.subject.data or '' }}">
-                <option value="general" >자유게시판</option>
-                <option value="information">정보게시판</option>
-                <option value="promotion">홍보게시판</option>
-                <option value="metaverse">메타버스</option>
-                <option value="issue">시사 이슈</option>
-            </select>
-        </div>
+        {% if is_favor == False %}
+            <div class="form-group">
+                <label for="category">게시판 선택</label>
+                <select class="form-control" name="category" id="category" value="{{ form.category.data or '' }}">
+                    <option value="general" >자유게시판</option>
+                    <option value="information">정보게시판</option>
+                    <option value="promotion">홍보게시판</option>
+                    <option value="metaverse">메타버스</option>
+                    <option value="issue">시사 이슈</option>
+                </select>
+            </div>
+        {% else %}
+            <div class="form-group">
+            <label for="favor_date">지정날짜</label>
+                <div>
+                    <input type="datetime-local" name="favor_date"  id="favor_date" value="{{ form.favor_date.data or '' }}">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="building">건물</label>
+                <div>
+                    <select class="selectpicker" name="building" id="building" data-live-search="true" data-style="btn-info" value="{{ form.building.data or '' }}">
+                        <optgroup label="교양/기타" >
+                            <option value=101>본관</option>
+                            <option value=102>학생복지관</option>
+                            <option value=103>학생회관</option>
+                            <option value=206>컨퍼런스홀</option>
+                            <option value=208>실용영어교육관</option>
+                            <option value=208>학술정보관</option>
+                            <option value=208>실용영어교육관</option>
+                            <option value=209>제1학술관</option>
+                            <option value=209>라이언스홀</option>
+                        </optgroup>
+                        <optgroup label="공학관">
+                            <option value=301>제1공학관</option>
+                            <option value=104>제2공학관</option>
+                            <option value=303>제3공학관</option>
+                            <option value=304>제4공학관</option>
+                            <option value=305>제5공학관</option>
+                            <option value=305>소프트웨어융합대학</option>
+                            <option value=309>약학관</option>
+                        </optgroup>
+                        <optgroup label="상경/문화/언론/사회대학">
+                            <option value=201>경상관</option>
+                            <option value=202>국제문화관</option>
+                            <option value=203>사회교육관/학군단</option>
+                            <option value=204>언론정보관</option>
+                        </optgroup>
+                        <optgroup label="예체능">
+                            <option value=109>디자인문화관</option>
+                            <option value=110>디자인교육관</option>
+                            <option value=111>디자인연구관</option>
+                            <option value=402>체육관</option>
+                            <option value=403>실용음악관</option>
+                        </optgroup>
+                        <optgroup label="과학기술융합대학">
+                            <option value=205>제1과학기술관</option>
+                            <option value=207>제2과학기술관</option>
+                        </optgroup>
+                    </select>
+                </div>
+            </div>
+        {% endif %}
         <div class="form-group">
             <label for="content">내용</label>
             <textarea class="form-control" name="content"
@@ -34,4 +87,9 @@
         <button type="submit" class="btn btn-primary">저장하기</button>
     </form>
 </div>
+
+
+
 {% endblock %}
+
+

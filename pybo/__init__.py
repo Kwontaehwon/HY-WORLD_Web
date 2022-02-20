@@ -12,7 +12,7 @@ naming_convention = {
     "pk": "pk_%(table_name)s"
 }
 db = SQLAlchemy(metadata=MetaData(naming_convention=naming_convention))
-migrate = Migrate()
+migrate = Migrate(compare_type=True)
 
 def page_not_found(e):
     return render_template('404.html'), 404

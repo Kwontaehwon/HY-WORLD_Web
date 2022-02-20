@@ -7,6 +7,22 @@
     </div>
     {% endfor %}
     <h2 class="border-bottom py-2">{{ question.subject }}</h2>
+    {% if question.is_favor == True %}
+    {% for favor in question.favor_set %}
+        <div class="badge badge-info p-2 text-left "  style="font-size: 15px">
+            <div class="mb-2">장소 : </div>
+            <div>{{favor.building.building_name}}</div>
+        </div>
+        <div class="badge badge-info p-2 text-left "  style="font-size: 15px">
+            <div class="mb-2">지정시간 </div>
+            <div>{{favor.favor_date}}</div>
+        </div>
+    {% endfor %}
+    <div class="row my-3">
+        <div class="col-1"> <!-- 추천영역 -->
+        </div>
+    </div>
+    {% endif %}
     <div class="row my-3">
         <div class="col-1"> <!-- 추천영역 -->
             <div class="bg-light text-center p-3 border font-weight-bolder mb-1">{{ question.voter|length }}</div>

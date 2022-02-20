@@ -5,8 +5,8 @@ from sqlalchemy import func, nullslast
 from werkzeug.utils import redirect
 
 from .. import db
-from ..forms import QuestionForm, AnswerForm
-from ..models import Question, Answer, User, question_voter
+from ..forms import QuestionForm, AnswerForm, FavorForm
+from ..models import Question, Answer, User, question_voter, Favor, Building
 from ..views.auth_views import login_required
 
 bp = Blueprint('question', __name__, url_prefix='/question')
@@ -137,11 +137,31 @@ def create():
     form = QuestionForm()
     if request.method == 'POST' and form.validate_on_submit():
         question = Question(subject=form.subject.data, content=form.content.data, category=form.category.data,
-                            create_date=datetime.datetime.now(), user=g.user)
+                            create_date=datetime.datetime.now(), user=g.user, is_favor=False)
         db.session.add(question)
         db.session.commit()
         return redirect(url_for('main.index'))
-    return render_template('question/question_form.html', form=form)
+    return render_template('question/question_form.html', form=form, is_favor=False)
+
+
+@bp.route('/create-favor/', methods=('GET', 'POST'))
+@login_required
+def create_favor():
+    form = FavorForm()
+    if request.method == 'POST' and form.validate_on_submit():
+        question = Question(subject=form.subject.data, content=form.content.data, category="favor",
+                            create_date=datetime.datetime.now(), user=g.user, is_favor=True)
+        db.session.add(question)
+        py_favor_datetime = datetime.datetime.fromisoformat(form.favor_date.data)
+        building_id = form.building.data
+        building = Building.query.get(building_id)
+        favor = Favor(favor_date=py_favor_datetime, building_id=building_id)
+        db.session.add(favor)
+        question.favor_set.append(favor)
+        building.building_set.append(favor)
+        db.session.commit()
+        return redirect(url_for('main.index'))
+    return render_template('question/question_form.html', form=form, is_favor=True)
 
 
 @bp.route('/modify/<int:question_id>', methods=('GET', 'POST'))

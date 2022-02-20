@@ -39,6 +39,7 @@
               <span class="font-weight-bold topic align-self-center pl-3"> <a href="{{ url_for('question.classify', category='promotion') }}">홍보게시판</a></span>
               <span class="font-weight-bold topic align-self-center pl-3"> <a href="{{ url_for('question.classify', category='metaverse') }}">메타버스</a></span>
               <span class="font-weight-bold topic align-self-center pl-3"> <a href="{{ url_for('question.classify', category='issue') }}">시사이슈</a></span>
+              <span class="font-weight-bold topic align-self-center pl-3"> <a href="{{ url_for('question.classify', category='favor') }}">품앗이</a></span>
               &nbsp;
             </div>
             <div class="col-4">
@@ -110,7 +111,7 @@
                   </div>
                 <div class="img my-4 ml-3"><a href="{{ url_for('auth.logout') }}"><img src="{{ url_for('static', filename='img/logout.png') }}"></a></div>
               {% else %}
-                <div class="img my-4 ml-3"><a href="{{ url_for('auth.login') }}"><img src="{{ url_for('static', filename='img/login.png') }}"></a></div>
+                <div class="img my-4 ml-3"><a href="{{ url_for('auth.login') }}"><img src="{{ url_for('static', filename='img/login2.png') }}"></a></div>
                 <div class="img my-4 ml-3"><a href="{{ url_for('auth.signup') }}"><img src="{{ url_for('static', filename='img/signup.png') }}"></a></div>
               {% endif %}
 
