@@ -172,15 +172,25 @@ def modify(question_id):
         flash('수정권한이 없습니다')
         return redirect(url_for('question.detail', question_id=question_id))
     if request.method == 'POST':
-        form = QuestionForm()
+        if question.is_favor:
+            form = FavorForm()
+        else:
+            form = QuestionForm()
         if form.validate_on_submit():
             form.populate_obj(question)
-            question.modify_date = datetime.datetime.now()  # 수정일시 저장
+            question.modify_date = datetime.datetime.now()  # 수정일시
+            if question.is_favor:
+                py_favor_datetime = datetime.datetime.fromisoformat(form.favor_date.data)
+                question.favor_set[0].favor_date = py_favor_datetime
+                question.favor_set[0].building_id = form.building.data
             db.session.commit()
             return redirect(url_for('question.detail', question_id=question_id))
     else:
-        form = QuestionForm(obj=question)
-    return render_template('question/question_form.html', form=form)
+        if question.is_favor:
+            form = FavorForm(obj=question)
+        else:
+            form = QuestionForm(obj=question)
+    return render_template('question/question_form.html', form=form, is_favor=question.is_favor)
 
 
 @bp.route('/delete/<int:question_id>')
@@ -190,6 +200,7 @@ def delete(question_id):
     if g.user != question.user:
         flash('삭제권한이 없습니다')
         return redirect(url_for('question.detail', question_id=question_id))
+    db.session.delete(question.favor_set[0])
     db.session.delete(question)
     db.session.commit()
     return redirect(url_for('question._list'))

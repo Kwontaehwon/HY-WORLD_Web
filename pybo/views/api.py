@@ -44,8 +44,10 @@ def favor():
             favor_list.append(question)
     json_list = []
     for favor in favor_list:
-        json_list.append({"subject" : favor.subject, "content" : favor.content, "location" : favor.favor_set.building_id})
-    return jsonify({"result" : json_list})
+        json_list.append({"subject" : favor.subject, "content" : favor.content,
+                          "location" : favor.favor_set[0].building_id, "favor_date" : favor.favor_set[0].favor_date,
+                          "create_date" : favor.create_date, "user" : favor.user.username})
+    return jsonify({"favor_list" : json_list})
 
 
 @bp.route('/login', methods = ['POST'])
