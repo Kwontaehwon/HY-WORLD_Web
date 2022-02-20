@@ -33,6 +33,21 @@ def environments():
     return jsonify({"result" : json_list})
 
 
+@bp.route('/favor')
+def favor():
+    question_list = Question.query.filter(Question.is_favor == True)\
+        .order_by(Question.create_date.desc())
+    favor_list = []
+    for question in question_list:
+        date_diff = (datetime.datetime.now() - question.create_date)
+        if date_diff < datetime.timedelta(days=7):
+            favor_list.append(question)
+    json_list = []
+    for favor in favor_list:
+        json_list.append({"subject" : favor.subject, "content" : favor.content, "location" : favor.favor_set.building_id})
+    return jsonify({"result" : json_list})
+
+
 @bp.route('/login', methods = ['POST'])
 def userLogin():
     user = request.get_json()#json 데이터를 받아옴
