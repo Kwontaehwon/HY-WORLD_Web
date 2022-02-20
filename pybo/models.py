@@ -35,7 +35,7 @@ class Category(db.Model):
 
 class Question(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    is_favor = db.Column(db.Boolean, nullable=False)
+    is_favor = db.Column(db.Boolean)
     subject = db.Column(db.String(200), nullable=False)
     content = db.Column(db.Text(), nullable=False)
     create_date = db.Column(db.DateTime(), nullable=False)
