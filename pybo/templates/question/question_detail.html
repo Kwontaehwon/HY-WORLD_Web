@@ -9,13 +9,13 @@
     <h2 class="border-bottom py-2">{{ question.subject }}</h2>
     {% if question.is_favor == True %}
     {% for favor in question.favor_set %}
-        <div class="badge badge-info p-2 text-left "  style="font-size: 15px">
-            <div class="mb-2">장소 : </div>
-            <div>{{favor.building.building_name}}</div>
+        <div class="badge badge-pill badge-warning p-2 text-center align-self-center align-middle center-block"  style="font-size: 15px;  color : #8c6239; min-width: 100px;  vertical-align: center">
+            {{favor.building.building_name}}
         </div>
-        <div class="badge badge-info p-2 text-left "  style="font-size: 15px">
-            <div class="mb-2">지정시간 </div>
-            <div>{{favor.favor_date}}</div>
+        <div class="badge badge-pill badge-warning p-2 text-center align-self-center align-middle center-block"  style="font-size: 15px ; color : #8c6239; min-width: 150px;">
+            <span>
+                {{favor.favor_date}}
+            </span>
         </div>
     {% endfor %}
     <div class="row my-3">
