@@ -34,7 +34,7 @@
         </div>
         <table class="table">
             <thead>
-            <tr class="text-center thead-dark">
+            <tr class="text-center table-active">
                 <th>번호</th>
                 <th>추천</th>
                 <th style="width:50%">제목</th>
@@ -53,7 +53,7 @@
                     {% endif %}
                 </td>
                 <td class="text-left">
-                    <a href="{{ url_for('question.detail', question_id=question.id) }}">{{ question.subject }}</a>
+                    <a href="{{ url_for('question.detail', question_id=question.id) }}" style="color : #8c6239">{{ question.subject }}</a>
                     {% if question.answer_set|length > 0 %}
                     <span class="text-danger small ml-2">{{ question.answer_set|length }}</span>
                     {% endif %}

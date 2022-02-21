@@ -17,29 +17,17 @@
         <div class="row">
           <div class="col-2 align-self-center drop">
             <div class="dropdown">
-              <a href="{{ url_for('main.index')}}"><img src="{{ url_for('static', filename='img/message_icon1.svg') }}" class="img-fluid pr-2"></a>
-              <button class="btn font-weight-bold px-0" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                HY-WORLD
-                <i class="fas fa-angle-down ml-2"></i>
-              </button>
-              <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                <a class="dropdown-item" href="#">Blog</a>
-                <a class="dropdown-item" href="#">About</a>
-                <a class="dropdown-item" href="#">Store</a>
-                <a class="dropdown-item" href="#">Mobile App</a>
-                <a class="dropdown-item" href="#">Advertise</a>
-                <a class="dropdown-item" href="#">Need Help</a>
-              </div>
+              <a href="{{ url_for('main.index')}}"><img src="{{ url_for('static', filename='img/logo.png') }}" class="img-fluid pr-2"></a>
             </div>
           </div>
           <div class="col-6 d-flex justify-content-between align-self-center search">
               &nbsp;
-              <span class="font-weight-bold topic align-self-center pl-3"> <a href="{{ url_for('question.classify', category='general') }}">자유게시판</a></span>
-              <span class="font-weight-bold topic align-self-center pl-3"> <a href="{{ url_for('question.classify', category='information') }}">정보게시판</a></span>
-              <span class="font-weight-bold topic align-self-center pl-3"> <a href="{{ url_for('question.classify', category='promotion') }}">홍보게시판</a></span>
-              <span class="font-weight-bold topic align-self-center pl-3"> <a href="{{ url_for('question.classify', category='metaverse') }}">메타버스</a></span>
-              <span class="font-weight-bold topic align-self-center pl-3"> <a href="{{ url_for('question.classify', category='issue') }}">시사이슈</a></span>
-              <span class="font-weight-bold topic align-self-center pl-3"> <a href="{{ url_for('question.classify', category='favor') }}">품앗이</a></span>
+              <span class="font-weight-bold topic align-self-center pl-3"> <a href="{{ url_for('question.classify', category='general') }}" style="color : #8c6239" >자유게시판</a></span>
+              <span class="font-weight-bold topic align-self-center pl-3"> <a href="{{ url_for('question.classify', category='information') }}" style="color : #8c6239" >정보게시판</a></span>
+              <span class="font-weight-bold topic align-self-center pl-3"> <a href="{{ url_for('question.classify', category='promotion') }}" style="color : #8c6239">홍보게시판</a></span>
+              <span class="font-weight-bold topic align-self-center pl-3"> <a href="{{ url_for('question.classify', category='metaverse') }}" style="color : #8c6239">메타버스</a></span>
+              <span class="font-weight-bold topic align-self-center pl-3"> <a href="{{ url_for('question.classify', category='issue') }}" style="color : #8c6239">시사이슈</a></span>
+              <span class="font-weight-bold topic align-self-center pl-3"> <a href="{{ url_for('question.classify', category='favor') }}" style="color : #8c6239">품앗이</a></span>
               &nbsp;
             </div>
             <div class="col-4">
