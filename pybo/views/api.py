@@ -54,14 +54,25 @@ def favor():
 
 @bp.route('/menu')
 def menu():
-    url = "https://www.hanyang.ac.kr/web/www/re12?p_p_id=foodView_WAR_foodportlet&p_p_lifecycle=0&p_p_state=normal&p_p_mode=view&p_p_col_id=column-1&p_p_col_pos=1&p_p_col_count=2&_foodView_WAR_foodportlet_sFoodDateDay=21&_foodView_WAR_foodportlet_sFoodDateYear=2022&_foodView_WAR_foodportlet_action=view&_foodView_WAR_foodportlet_sFoodDateMonth=1"
+    year = datetime.datetime.now().strftime("%Y")
+    month = datetime.datetime.now().strftime("%M")
+    url = "https://www.hanyang.ac.kr/web/www/re12?" \
+          "p_p_id=foodView_WAR_foodportlet&p_p_lifecycle=0&p_p_state=normal&p_p_mode=view&p_p_col_id=column-1&p_p_col_pos=1&p_p_col_count=2&_foodView_WAR_foodportlet_s" \
+          "FoodDateDay=21&" \
+          "_foodView_WAR_foodportlet_sFoodDateYear=" + year + \
+          "&_foodView_WAR_foodportlet_action=view&_foodView_WAR_foodportlet" \
+          "_sFoodDateMonth="+month
     response = requests.get(url)
+
     if response.status_code == 200:
         html = response.text
         soup = BeautifulSoup(html, 'html.parser')
         menu = soup.select_one('#messhall1 > div:nth-child(1) > div > div > div > ul > li:nth-child(1) > a > img')
-        menu_string = menu['alt']
-        return jsonify({"menu": menu_string})
+        if(menu != None):
+            menu_string = menu['alt']
+            return jsonify({"menu": menu_string})
+        else:
+            return jsonify({"menu": "None"})
     else:
         return jsonify({"error" : response.status_code})
 
