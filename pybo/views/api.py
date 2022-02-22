@@ -1,5 +1,7 @@
 from flask import Blueprint, url_for, current_app, jsonify, request
 from sqlalchemy import func, nullslast
+from bs4 import BeautifulSoup
+import requests
 import datetime
 from werkzeug.security import  check_password_hash
 
@@ -47,8 +49,22 @@ def favor():
         json_list.append({"subject" : favor.subject, "content" : favor.content,
                           "location" : favor.favor_set[0].building_id, "favor_date" : favor.favor_set[0].favor_date.strftime('%Y-%m-%d'),
                           "favor_time" : favor.favor_set[0].favor_date.strftime("%H:%M"), "create_time" : favor.create_date.strftime("%H:%M"),
-                          "create_date" : favor.create_date.strftime('%Y-%m-%d'), "user" : favor.user.username})
+                          "create_date" : favor.create_date.strftime('%Y-%m-%d'), "user" : favor.user.username, "question_id" : favor.id})
     return jsonify({"favor_list" : json_list})
+
+@bp.route('/menu')
+def menu():
+    url = "https://www.hanyang.ac.kr/web/www/re12?p_p_id=foodView_WAR_foodportlet&p_p_lifecycle=0&p_p_state=normal&p_p_mode=view&p_p_col_id=column-1&p_p_col_pos=1&p_p_col_count=2&_foodView_WAR_foodportlet_sFoodDateDay=21&_foodView_WAR_foodportlet_sFoodDateYear=2022&_foodView_WAR_foodportlet_action=view&_foodView_WAR_foodportlet_sFoodDateMonth=1"
+    response = requests.get(url)
+    if response.status_code == 200:
+        html = response.text
+        soup = BeautifulSoup(html, 'html.parser')
+        menu = soup.select_one('#messhall1 > div:nth-child(1) > div > div > div > ul > li:nth-child(1) > a > img')
+        menu_string = menu['alt']
+        return jsonify({"menu": menu_string})
+    else:
+        return jsonify({"error" : response.status_code})
+
 
 
 @bp.route('/login', methods = ['POST'])
