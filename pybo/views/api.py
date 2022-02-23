@@ -102,6 +102,6 @@ def userLogin():
     elif not check_password_hash(user.password, user_pw):
         error = "비밀번호가 올바르지 않습니다."
     if error is None:
-        return jsonify({"result": "true"})
+        return jsonify({"result": "true", "user_name" : user.username, "user_point" : user.point})
     return jsonify({"result": error})
     #return jsonify(user)# 받아온 데이터를 다시 전송

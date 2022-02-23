@@ -19,6 +19,7 @@ def signup():
         if not user:
             user = User(username=form.username.data,
                         password=generate_password_hash(form.password1.data),
+                        point=0,
                         email=form.email.data)
             db.session.add(user)
             db.session.commit()

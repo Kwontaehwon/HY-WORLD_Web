@@ -141,6 +141,7 @@ def create():
         question = Question(subject=form.subject.data, content=form.content.data, category=form.category.data,
                             create_date=datetime.datetime.now(), user=g.user, is_favor=False)
         db.session.add(question)
+        g.user.point += 1
         db.session.commit()
         return redirect(url_for('main.index'))
     return render_template('question/question_form.html', form=form, is_favor=False)
@@ -161,6 +162,7 @@ def create_favor():
         db.session.add(favor)
         question.favor_set.append(favor)
         building.building_set.append(favor)
+        g.user.point += 5
         db.session.commit()
         return redirect(url_for('main.index'))
     return render_template('question/question_form.html', form=form, is_favor=True)
