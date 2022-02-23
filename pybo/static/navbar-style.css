@@ -473,6 +473,17 @@ body {
     animation-name: fadeIn;
     animation-duration: 0.4s; }
 
+
+
+
+  body .navhov a{
+    color : #512a0a;
+  }
+  body .navhov a:hover{
+    color: #ffa300;
+    transition: all 1s ease;
+  }
+
 footer {
   padding: 2rem 0 2rem 0; }
   footer .d-flex a {

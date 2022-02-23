@@ -6,7 +6,7 @@ from werkzeug.utils import redirect
 
 from .. import db
 from ..forms import QuestionForm, AnswerForm, FavorForm
-from ..models import Question, Answer, User, question_voter, Favor, Building
+from ..models import Question, Answer, User, question_voter, Favor, Building, Category
 from ..views.auth_views import login_required
 
 bp = Blueprint('question', __name__, url_prefix='/question')
@@ -121,14 +121,16 @@ def classify(category):
             num += 1
     # 페이징
     question_list = question_list.paginate(page, per_page=10)
-    return render_template('question/question_list.html', question_list=question_list, best_list=best_list, page=page, kw=kw, so=so, category=category)
+    category_name = Category.query.get(category).description
+    return render_template('question/question_list.html', question_list=question_list, best_list=best_list, page=page, kw=kw, so=so, category=category, category_name=category_name)
 
 
 @bp.route('/detail/<int:question_id>/')
 def detail(question_id):
     form = AnswerForm()
     question = Question.query.get_or_404(question_id)
-    return render_template('question/question_detail.html', question=question, form=form)
+    category = Category.query.get(question.category).description
+    return render_template('question/question_detail.html', question=question, form=form, category=category)
 
 
 @bp.route('/create/', methods=('GET', 'POST'))

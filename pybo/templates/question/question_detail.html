@@ -6,7 +6,14 @@
         {{ message }}
     </div>
     {% endfor %}
-    <h2 class="border-bottom py-2">{{ question.subject }}</h2>
+    <div class="row border-bottom py-2 mb-3 pl-2">
+        <h3  style="display: inline ; margin:0;">{{ question.subject }}</h3>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <span class="badge badge-pill badge-info py-2 center-block p-2 bb-4"  style="min-width: 100px; height:30px; vertical-align: center">
+            {{category}}
+        </span>
+    </div>
+
     {% if question.is_favor == True %}
     {% for favor in question.favor_set %}
         <div class="badge badge-pill badge-warning p-2 text-center align-self-center align-middle center-block"  style="font-size: 15px;  color : #8c6239; min-width: 100px;  vertical-align: center">
