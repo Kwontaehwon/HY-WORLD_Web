@@ -95,10 +95,14 @@
             <div class="bg-light text-center p-3 border font-weight-bolder mb-1">{{ answer.voter|length }}</div>
             <a href="#" data-uri="{{ url_for('vote.answer', answer_id=answer.id) }}"
                 class="recommend btn btn-sm btn-secondary btn-block my-1">추천</a>
+            {% if question.is_favor == True and question.favor_set[0].resolve_answer_id == None and question.user == g.user%}
+                 <a href="#" data-uri="{{ url_for('vote.resolve', answer_id=answer.id) }}"
+                    class="recommend btn btn-sm btn-secondary btn-block my-1">채택</a>
+            {% endif %}
         </div>
         <div class="col-11">  <!-- 답변영역 -->
-            <div class="card">
-                <div class="card-body">
+            <div class="card" >  <!-- border-color 하면 색깔 들어감 -->
+                <div class="card-body" >
                     <div class="card-text" style="white-space: pre-line;">{{ answer.content }}</div>
                     <div class="d-flex justify-content-end">
                         {% if answer.modify_date %}
@@ -111,6 +115,11 @@
                             <div class="mb-2">{{ answer.user.username }}</div>
                             <div>{{ answer.create_date|datetime }}</div>
                         </div>
+                        {% if question.favor_set[0].resolve_answer_id == answer.id %}
+                        <div class="badge badge-light p-2 text-center mx-3">
+                            <div class="mb-2">채택됨</div>
+                        </div>
+                        {% endif %}
                     </div>
                     {% if g.user == answer.user %}
                     <div class="my-3">

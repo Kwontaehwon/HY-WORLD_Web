@@ -20,7 +20,8 @@ class Favor(db.Model):
     building = db.relationship('Building', backref=db.backref('building_set'))
     question = db.relationship('Question', backref=db.backref('favor_set'), uselist=False)
     question_id = db.Column(db.Integer, db.ForeignKey('question.id', ondelete='CASCADE'))
-
+    resolve_answer = db.relationship('Answer', backref=db.backref('resolve_answer'))
+    resolve_answer_id = db.Column(db.Integer, db.ForeignKey('answer.id'))
 
 class Building(db.Model):
     id = db.Column(db.Integer, primary_key=True)
