@@ -6,9 +6,6 @@
 <body>
 <section class="user_summary py-5">
 <div class="container">
-  <div class="py-5">
-    <span class="text-white">{{user.username[0]}}</span>
-  </div>
   <div class="row d-flex justify-content-between pl-3 pr-2">
     <div class="row">
       <div class="text-white px-0">
@@ -16,34 +13,15 @@
         <p>POINT : {{user.point}}점</p>
       </div>
       <ul class="list-group list-group-horizontal border-left align-self-center ml-3 px-3">
-        <li class="list-item"><a href="#"><img src="{{ url_for('static', filename='img/logout.png') }}"></a></li>
-        <li class="list-item"><a href="#"><img src="{{ url_for('static', filename='img/logout.png') }}"></a></li>
-        <li class="list-item"><a href="#"><img src="{{ url_for('static', filename='img/logout.png') }}"></a></li>
-        <li class="list-item"><a href="#"><img src="{{ url_for('static', filename='img/logout.png') }}"></a></li>
-        <li class="list-item"><a href="#"><img src="{{ url_for('static', filename='img/logout.png') }}"></a></li>
+        <li class="list-item"><a href="#"><img src="{{ url_for('static', filename='img/sprout.png') }}"></a></li>
+        <li class="list-item"><a href="#"><img src="{{ url_for('static',  filename='img/give-love.png') }}"></a></li>
       </ul>
     </div>
-    <button type="button" class="my-3 px-3">버튼 테스트</button>
   </div>
 </div>
 </section>
 <section class="user-menu">
 <div class="container">
-  <div class="row border-bottom py-3 d-flex justify-content-between">
-    <ul class="list-group list-group-horizontal">
-      <li class="list-item"><a href="#"class="pr-3 text-warning">Summary</a></li>
-      <li class="list-item"><a href="#" class="pr-3"><i class="fas fa-bell pr-1 text-muted"></i>Notifications</a></li>
-      <li class="list-item"><a href="#" class="pr-3"><i class="fas fa-user pr-1 text-muted"></i>Friends</a></li>
-      <li class="list-item"><a href="#" class="pr-3"><i class="fas fa-envelope pr-1 text-muted"></i>Messages</a></li>
-      <li class="list-item"><a href="#" class="pr-3"><i class="fas fa-certificate pr-1 text-muted"></i>Badges</a></li>
-      <li class="list-item"><a href="#" class="pr-3"><i class="fas fa-cog pr-1 text-muted"></i>Settinhgs</a></li>
-    </ul>
-    <div class="">
-      <a href="#"><i class="fas fa-user-plus pr-2 text-muted"></i></a>
-      <a href="#"><i class="fas fa-comment-alt pr-2 text-muted"></i></a>
-      <a href="#"><i class="fas fa-flag text-muted"></i></a>
-    </div>
-  </div>
   <h5 class="row mt-5">함께한 기록</h5>
   <div class="row mb-5">
     <span class="mr-1">추천</span><i class="fas fa-heart text-danger pr-2"></i> <p class="pr-2 font-weight-bold">{{ vote }}</p>
@@ -95,13 +73,13 @@
 </div>
   <section class="user-badges my-5">
     <div class="container px-0">
-      <h6 class="font-weight-bold text-body">Badges Earned</h6>
+      <h6 class="font-weight-bold text-body">획득한 뱃지</h6>
       <div class="row badges">
       {% if question_num >= 3 %}
            <div class="col-4 pt-4 bot">
             <div class="text-center py-3 bg-white">
               <span class="top-right bg-secondary text-white p-1">{{question_num}}</span>
-              <img src="#" class="img-fluid pb-4">
+              <img src="{{ url_for('static', filename='img/sprout.png') }}" class="img-fluid pb-4">
               <p class="font-weight-bold mb-0 pt-3">새내기</p>
               <span>HY-WORLD 게시물 {{question_num}}개 작성</span>
              </div>
@@ -111,14 +89,14 @@
            <div class="col-4 pt-4 bot">
             <div class="text-center py-3 bg-white">
               <span class="top-right bg-secondary text-white p-1">{{ vote }}</span>
-              <img src="#" class="img-fluid pb-4">
+              <img src="{{ url_for('static', filename='img/give-love.png') }}" class="img-fluid pb-4">
               <p class="font-weight-bold mb-0 pt-3">하트</p>
               <span>게시물 및 댓글 작성으로 추천 {{vote}} 개 획득</span>
              </div>
            </div>
       {% endif %}
     </div>
-    <a href="#" class="text-muted">More Badges <i class="fas fa-long-arrow-alt-right pl-2 text-warning"></i></a>
+<!--    <a href="#" class="text-muted">More Badges <i class="fas fa-long-arrow-alt-right pl-2 text-warning"></i></a>-->
     </div>
   </section>
 

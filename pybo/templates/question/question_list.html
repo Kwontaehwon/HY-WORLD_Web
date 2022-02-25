@@ -53,7 +53,7 @@
                 <td>{{ question_list.total - ((question_list.page-1) * question_list.per_page) - loop.index0 }}</td>
                 <td>
                     {% if question.voter|length > 0 %}
-                    <span class="badge badge-warning px-2 py-1">{{ question.voter|length }}</span>
+                    <span class="badge badge-warning px-2 py-1" >{{ question.voter|length }}</span>
                     {% endif %}
                 </td>
                 <td class="text-left">
@@ -62,8 +62,8 @@
                     <span class="text-danger small ml-2">{{ question.answer_set|length }}</span>
                     {% endif %}
                 </td>
-                <td>{{ question.user.username }}</td>  <!-- 글쓴이 추가 -->
-                <td>{{ question.create_date|datetime }}</td>
+                <td class="text-align-center" style="font-size : 14px">{{ question.user.username }}</td>  <!-- 글쓴이 추가 -->
+                <td class="text-align-center" style="font-size : 14px">{{ question.create_date|datetime }}</td>
             </tr>
             {% endfor %}
             {% else %}

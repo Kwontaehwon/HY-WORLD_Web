@@ -99,6 +99,11 @@
                  <a href="#" data-uri="{{ url_for('vote.resolve', answer_id=answer.id) }}"
                     class="recommend btn btn-sm btn-secondary btn-block my-1">채택</a>
             {% endif %}
+            {% if question.is_favor == True and question.favor_set[0].resolve_answer_id == answer.id %}
+                <div class="badge badge-warning text-center" style="vertical-align: middle; width: 65px">
+                    <div class="my-2">채택됨</div>
+                </div>
+            {% endif %}
         </div>
         <div class="col-11">  <!-- 답변영역 -->
             {% if question.is_favor == True and question.favor_set[0].resolve_answer_id == answer.id %}
@@ -120,8 +125,8 @@
                             <div>{{ answer.create_date|datetime }}</div>
                         </div>
                         {% if question.is_favor == True and question.favor_set[0].resolve_answer_id == answer.id %}
-                        <div class="badge badge-light p-2 text-center mx-3">
-                            <div class="mb-2">채택됨</div>
+                        <div class="badge badge-warning p-2 text-center mx-3">
+                            <div class="my-2">채택됨</div>
                         </div>
                         {% endif %}
                     </div>

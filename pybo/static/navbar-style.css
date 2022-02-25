@@ -178,7 +178,7 @@ body {
   body p {
     font-size: .85rem; }
   body label, body input, body textarea {
-    font-size: 1rem !important; }
+    font-size: 1rem }
   body option {
     color: #9fa0a1; }
   body a {
@@ -434,8 +434,10 @@ body {
   body .new-topic textarea {
     border: none; }
   body .user_summary {
-    position: relative;
-    background: #272566; }
+    background-image: url('img/size.png');
+    background-repeat : no-repeat;
+    background-size : cover;
+  }
     body .user_summary img {
       width: 3.3rem;
       height: auto; }
