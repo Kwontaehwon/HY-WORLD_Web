@@ -11,7 +11,7 @@
       <div class="text-white px-0">
           <h5><b>{{user.username}} </b>님</h5>
         <p>POINT : {{user.point}}점<br>
-        레벨 : {{user.point // 50}}</p>
+        레벨 : {{user.point // 25}}</p>
       </div>
       <ul class="list-group list-group-horizontal border-left align-self-center ml-3 px-3">
         <li class="list-item"><a href="#"><img src="{{ url_for('static', filename='img/sprout.png') }}"></a></li>
@@ -23,7 +23,7 @@
 </section>
 <section class="user-menu">
 <div class="container">
-    <span class="row mt-5">다음 레벨까지 <b>&nbsp;{{user.point % 50}} </b>점 남았어요!</span>
+    <span class="row mt-5">다음 레벨까지 <b>&nbsp;{{user.point % 25}} </b>점 남았어요!</span>
   <h5 class="row mt-5">함께한 기록</h5>
   <div class="row mb-5">
     <span class="mr-1">추천</span><i class="fas fa-heart text-danger pr-2"></i> <p class="pr-2 font-weight-bold">{{ vote }}</p>

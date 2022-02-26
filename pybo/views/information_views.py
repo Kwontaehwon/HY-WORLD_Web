@@ -19,5 +19,6 @@ def _nullslast(obj):
 
 
 @bp.route('/bus')
+@login_required
 def bus():
     return render_template('information/bus.html')

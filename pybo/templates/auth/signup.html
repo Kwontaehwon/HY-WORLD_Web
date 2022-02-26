@@ -7,7 +7,7 @@
       <a href="sign-in.html" class="text-body">로그인</a>
     </div>
       <div class="form col-8 mx-auto">
-      <a href="{{ url_for('main.index')}}"><img src="{{ url_for('static', filename='img/logo.png') }}" class="img-fluid" style="width: 200px"></a>
+      <a href="{{ url_for('main.hello')}}"><img src="{{ url_for('static', filename='img/logo.png') }}" class="img-fluid" style="width: 200px"></a>
         <br>
         <form method="post" class="post-form">
             {{ form.csrf_token }}

@@ -19,6 +19,7 @@ def _nullslast(obj):
 
 
 @bp.route('/list/')
+@login_required
 def _list():
     # 입력 파라미터
     page = request.args.get('page', type=int, default=1)
@@ -75,6 +76,7 @@ def _list():
     return render_template('question/question_list.html', question_list=question_list, best_list = best_list, page=page, kw=kw, so=so)
 
 @bp.route('/list/<string:category>')
+@login_required
 def classify(category):
     # 입력 파라미터
     page = request.args.get('page', type=int, default=1)
@@ -128,6 +130,7 @@ def classify(category):
 
 
 @bp.route('/detail/<int:question_id>/')
+@login_required
 def detail(question_id):
     form = AnswerForm()
     question = Question.query.get_or_404(question_id)

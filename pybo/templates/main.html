@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" type="text/css"  href="{{ url_for('static', filename='templatemo-softy-pinko.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='bootstrap.min.css') }}">
+
+    <!-- Plugins -->
+    <script src="{{ url_for('static', filename='waypoints.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='scrollreveal.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='jquery-3.4.1.min.js') }}"></script>
+    <!-- jQuery JS -->
+    <script src="{{ url_for('static', filename='custom.js') }}"></script>
+    <!-- Bootstrap JS -->
+    <script src="{{ url_for('static', filename='bootstrap.min.js') }}"></script>
+
+    <title>HY-WORLD</title>
+</head>
+
+    <body>
+    <!-- ***** Header Area Start ***** -->
+    <header class="header-area header-sticky">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <nav class="main-nav">
+                        <!-- ***** Logo Start ***** -->
+                        <a href="{{ url_for('main.hello')}}" class="logo">
+                            <img src="{{ url_for('static', filename='img/logo-small.png') }}" alt="HY-WORLD"/>
+                        </a>
+                        <!-- ***** Logo End ***** -->
+                        <!-- ***** Menu Start ***** -->
+                        <ul class="nav">
+                            <li><a href="#welcome" class="active">메인</a></li>
+                            <li><a href="#work-process">HY-WORLD</a></li>
+                            <li><a href="{{ url_for('auth.login') }}">로그인</a></li>
+                            <li><a href="{{ url_for('auth.signup') }}">회원가입</a></li>
+                        </ul>
+                        <a class='menu-trigger'>
+                            <span>Menu</span>
+                        </a>
+                        <!-- ***** Menu End ***** -->
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </header>
+    <!-- ***** Header Area End ***** -->
+
+    <!-- ***** Welcome Area Start ***** -->
+    <div class="welcome-area" id="welcome">
+
+        <!-- ***** Header Text Start ***** -->
+        <div class="header-text">
+            <div class="container">
+                <div class="row">
+                    <!-- <div class="offset-xl-3 col-xl-6 offset-lg-2 col-lg-8 col-md-12 col-sm-12">
+                        <h1>We provide the best <strong>strategy</strong><br>to grow up your <strong>business</strong></h1>
+                        <p>Softy Pinko is a professional Bootstrap 4.0 theme designed by Template Mo 
+                        for your company at absolutely free of charge</p>
+                        <a href="#features" class="main-button-slider">Discover More</a>
+                    </div> -->
+                </div>
+            </div>
+        </div>
+        <!-- ***** Header Text End ***** -->
+    </div>
+    <!-- ***** Welcome Area End ***** -->
+
+    <!-- ***** Home Parallax Start ***** -->
+    <section class="mini" id="work-process">
+        <div class="mini-content">
+            <div class="container">
+                <div class="row">
+                    <div class="offset-lg-3 col-lg-6">
+                        <div class="info">
+                            <h1>HY-WORLD</h1>
+                            <p>HY-WORLD는 메타버스 커뮤니티와 현실을 연계하고<br>
+                                그 안에서 긍정적 선순환을 이끄는 가치를 추구합니다.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ***** Mini Box Start ***** -->
+                <div class="row">
+                    <div class="col-lg-2 col-md-3 col-sm-6 col-6">
+                        <a href="{{ url_for('auth.login') }}" class="mini-box">
+                            <i><img src="{{ url_for('static', filename='img/work-process-item-01.png') }}" alt=""></i>
+                            <strong>자유게시판</strong>
+                            <span>자유로운 이야기를 나눠보세요!</span>
+                        </a>
+                    </div>
+                    <div class="col-lg-2 col-md-3 col-sm-6 col-6">
+                        <a href="{{ url_for('auth.login') }}" class="mini-box">
+                            <i><img src="{{ url_for('static', filename='img/work-process-item-01.png') }}" alt=""></i>
+                            <strong>정보게시판</strong>
+                            <span>유용한 정보를<br> 나눠보세요!</span>
+                        </a>
+                    </div>
+                    <div class="col-lg-2 col-md-3 col-sm-6 col-6">
+                        <a href="{{ url_for('auth.login') }}" class="mini-box">
+                            <i><img src="{{ url_for('static', filename='img/work-process-item-01.png') }}" alt=""></i>
+                            <strong>강의평가</strong>
+                            <span>다른 학우를 위해 정보를<br> 남겨주세요!</span>
+                        </a>
+                    </div>
+                    <div class="col-lg-2 col-md-3 col-sm-6 col-6">
+                        <a href="{{ url_for('auth.login') }}" class="mini-box">
+                            <i><img src="{{ url_for('static', filename='img/work-process-item-01.png') }}" alt=""></i>
+                            <strong>메타버스</strong>
+                            <span>HY-WORLD<br> 메타버스에 대해 얘기해보세요!</span>
+                        </a>
+                    </div>
+                    <div class="col-lg-2 col-md-3 col-sm-6 col-6">
+                        <a href="{{ url_for('auth.login') }}" class="mini-box">
+                            <i><img src="{{ url_for('static', filename='img/work-process-item-01.png') }}" alt=""></i>
+                            <strong>품앗이 요청</strong>
+                            <span>다른 학생들에게 도움을 요청 하세요!</span>
+                        </a>
+                    </div>
+                    <div class="col-lg-2 col-md-3 col-sm-6 col-6">
+                        <a href="{{ url_for('auth.login') }}" class="mini-box">
+                            <i><img src="{{ url_for('static', filename='img/work-process-item-01.png') }}" alt=""></i>
+                            <strong>품앗이 제공</strong>
+                            <span>다른 학생들에게 당신의 선한 영향력을 전해보세요!</span>
+                        </a>
+                    </div>
+                </div>
+                <!-- ***** Mini Box End ***** -->
+            </div>
+        </div>
+    </section>
+    <!-- ***** Home Parallax End ***** -->
+
+
+
+
+    </body>
+</html>
