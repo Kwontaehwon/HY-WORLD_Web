@@ -50,21 +50,13 @@
                 <div class="card-body">
                     <div class="card-text">{{ question.content|markdown }}</div>
                     <div class="d-flex justify-content-end">
-                        {% if question.modify_date %}
-                        <div class="badge badge-light p-2 text-left mx-3">
-                            <div class="mb-2">수정됨</div>
-                            <div>{{ question.modify_date|datetime }}</div>
-                        </div>
-                        {% endif %}
                         <div class="badge badge-light p-2 text-left">
-                            <div class="mb-2">{{ question.user.username }}</div>
+                            <div class="mb-2">익명</div>
                             <div>{{ question.create_date|datetime }}</div>
                         </div>
                     </div>
                     {% if g.user == question.user %}
                     <div class="my-3">
-                        <a href="{{ url_for('question.modify', question_id=question.id) }}"
-                           class="btn btn-sm btn-outline-secondary">수정</a>
                         <a href="#" class="delete btn btn-sm btn-outline-secondary"
                            data-uri="{{ url_for('question.delete', question_id=question.id) }}">삭제</a>
                     </div>

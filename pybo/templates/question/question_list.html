@@ -66,7 +66,11 @@
                     <span class="text-danger small ml-2">{{ question.answer_set|length }}</span>
                     {% endif %}
                 </td>
-                <td class="text-align-center" style="font-size : 14px">{{ question.user.username }}</td>  <!-- 글쓴이 추가 -->
+                {% if category == "rating" %}
+                    <td class="text-align-center" style="font-size : 14px">익명</td> <!-- 글쓴이 추가 -->
+                {% else %}
+                    <td class="text-align-center" style="font-size : 14px">{{ question.user.username }}</td>
+                {% endif %}
                 <td class="text-align-center" style="font-size : 14px">{{ question.create_date|datetime }}</td>
             </tr>
             {% endfor %}
