@@ -6,32 +6,39 @@
         {{ message }}
     </div>
     {% endfor %}
+
     <div class="row border-bottom py-2 mb-3 pl-2">
         <h3  style="display: inline ; margin:0;">{{ question.subject }}</h3>
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <span class="mt-2 mr-4">
+        {% for i in range(question.rating_set[0].score) %}
+            <img src="{{ url_for('static', filename='img/star.png') }}" class="img-fluid pb-4" style="width: 15px">
+        {% endfor %}
+        </span>
         <span class="badge badge-pill py-2 center-block p-2 bb-4"  style="min-width: 100px; height:30px; background-color: #cccccc; vertical-align: center">
             {{category}}
         </span>
     </div>
-
-    {% if question.is_favor == True %}
-    {% for favor in question.favor_set %}
-        <div class="badge badge-pill badge-warning p-2 text-center align-self-center align-middle center-block"  style="font-size: 12px;  color : #8c6239; background-color: #ffde55; min-width: 100px;  vertical-align: center">
-            <span>
-                {{favor.building.building_name}}
-            </span>
-        </div>
-        <div class="badge badge-pill badge-warning p-2 text-center align-self-center align-middle center-block"  style="font-size: 12px ; color : #8c6239; background-color: #ffde55; min-width: 150px;">
-            <span>
-                {{favor.favor_date}}
-            </span>
-        </div>
-    {% endfor %}
-    <div class="row my-3">
-        <div class="col-1"> <!-- 추천영역 -->
-        </div>
+    <div class="badge badge-pill badge-warning p-2 text-center align-self-center align-middle center-block"  style="font-size: 12px;  color : #8c6239; background-color: #ffde55; min-width: 140px;  vertical-align: center">
+        <span>
+            {{ question.rating_set[0].professor }} 교수님
+        </span>
     </div>
-    {% endif %}
+    <div class="badge badge-pill badge-warning p-2 text-center align-self-center align-middle center-block"  style="font-size: 12px ; color : #8c6239; background-color: #ffde55; min-width: 140px;">
+        <span>
+            {{ question.rating_set[0].department.department_name}}
+            {% if question.rating_set[0].is_major %}
+                전공
+            {% else %}
+                교양
+            {% endif %}
+        </span>
+    </div>
+    <div class="badge badge-pill badge-warning p-2 text-center align-self-center align-middle center-block"  style="font-size: 12px ; color : #8c6239; background-color: #ffde55; min-width: 140px;">
+        <span>
+            {{ question.rating_set[0].semester.semester_name}}
+        </span>
+    </div>
     <div class="row my-3">
         <div class="col-1"> <!-- 추천영역 -->
             <div class="bg-light text-center p-3 border font-weight-bolder mb-1">{{ question.voter|length }}</div>
@@ -97,22 +104,9 @@
             <div class="bg-light text-center p-3 border font-weight-bolder mb-1">{{ answer.voter|length }}</div>
             <a href="#" data-uri="{{ url_for('vote.answer', answer_id=answer.id) }}"
                 class="recommend btn btn-sm btn-secondary btn-block my-1">추천</a>
-            {% if question.is_favor == True and question.favor_set[0].resolve_answer_id == None and question.user == g.user and answer.user_id != g.user.id %}
-                 <a href="#" data-uri="{{ url_for('vote.resolve', answer_id=answer.id) }}"
-                    class="resolve btn btn-sm btn-secondary btn-block my-1">채택</a>
-            {% endif %}
-            {% if question.is_favor == True and question.favor_set[0].resolve_answer_id == answer.id %}
-                <div class="badge badge-warning text-center" style="vertical-align: middle; width: 65px; background-color: #ffa300">
-                    <div class="my-2">채택됨</div>
-                </div>
-            {% endif %}
         </div>
         <div class="col-11">  <!-- 답변영역 -->
-            {% if question.is_favor == True and question.favor_set[0].resolve_answer_id == answer.id %}
-            <div class="card" style="border-color : #ffa300; border-width: 2px;">  <!-- border-color 하면 색깔 들어감 -->
-            {% else %}
             <div class="card">
-            {% endif %}
                 <div class="card-body" >
                     <div class="card-text" style="white-space: pre-line;">{{ answer.content }}</div>
                     <div class="d-flex justify-content-end">

@@ -7,6 +7,7 @@ from werkzeug.utils import redirect
 from .. import db
 from ..forms import UserCreateForm, UserLoginForm
 from ..models import User
+import datetime
 
 bp = Blueprint('auth', __name__, url_prefix='/auth')
 
@@ -20,7 +21,8 @@ def signup():
             user = User(username=form.username.data,
                         password=generate_password_hash(form.password1.data),
                         point=0,
-                        email=form.email.data)
+                        email=form.email.data,
+                        signup_date=datetime.datetime.now())
             db.session.add(user)
             db.session.commit()
             return redirect(url_for('main.index'))

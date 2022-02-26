@@ -434,7 +434,7 @@ body {
   body .new-topic textarea {
     border: none; }
   body .user_summary {
-    background-image: url('img/size.png');
+    background-image: url('img/mypage-back.jpg');
     background-repeat : no-repeat;
     background-size : cover;
   }

@@ -5,8 +5,8 @@ from sqlalchemy import func, nullslast
 from werkzeug.utils import redirect
 
 from .. import db
-from ..forms import QuestionForm, AnswerForm, FavorForm
-from ..models import Question, Answer, User, question_voter, Favor, Building, Category
+from ..forms import QuestionForm, AnswerForm, FavorForm, RatingForm
+from ..models import Question, Answer, User, question_voter, Favor, Building, Category, Department, Rating, Semester
 from ..views.auth_views import login_required
 
 bp = Blueprint('question', __name__, url_prefix='/question')
@@ -31,15 +31,17 @@ def _list():
             .group_by(question_voter.c.question_id).subquery()
         question_list = Question.query \
             .outerjoin(sub_query, Question.id == sub_query.c.question_id) \
+            .filter(Question.category != "rating")\
             .order_by(_nullslast(sub_query.c.num_voter.desc()), Question.create_date.desc())
     elif so == 'popular':
         sub_query = db.session.query(Answer.question_id, func.count('*').label('num_answer')) \
             .group_by(Answer.question_id).subquery()
         question_list = Question.query \
             .outerjoin(sub_query, Question.id == sub_query.c.question_id) \
+            .filter(Question.category != "rating")\
             .order_by(_nullslast(sub_query.c.num_answer.desc()), Question.create_date.desc())
     else:  # recent
-        question_list = Question.query.order_by(Question.create_date.desc())
+        question_list = Question.query.filter(Question.category != "rating").order_by(Question.create_date.desc())
 
     # 조회
     if kw:
@@ -139,7 +141,7 @@ def create():
     form = QuestionForm()
     if request.method == 'POST' and form.validate_on_submit():
         question = Question(subject=form.subject.data, content=form.content.data, category=form.category.data,
-                            create_date=datetime.datetime.now(), user=g.user, is_favor=False)
+                            create_date=datetime.datetime.now(), user=g.user, is_favor=False, is_rating=False)
         db.session.add(question)
         g.user.point += 1
         db.session.commit()
@@ -153,7 +155,7 @@ def create_favor():
     form = FavorForm()
     if request.method == 'POST' and form.validate_on_submit():
         question = Question(subject=form.subject.data, content=form.content.data, category="favor",
-                            create_date=datetime.datetime.now(), user=g.user, is_favor=True)
+                            create_date=datetime.datetime.now(), user=g.user, is_favor=True, is_rating=False)
         db.session.add(question)
         py_favor_datetime = datetime.datetime.fromisoformat(form.favor_date.data)
         building_id = form.building.data
@@ -166,6 +168,45 @@ def create_favor():
         db.session.commit()
         return redirect(url_for('main.index'))
     return render_template('question/question_form.html', form=form, is_favor=True)
+
+
+@bp.route('/create-rating/', methods=('GET', 'POST'))
+@login_required
+def create_rating():
+    form = RatingForm()
+    semester_list = Semester.query.order_by(_nullslast(Semester.id.desc()))
+    department_list = Department.query.order_by(_nullslast(Department.id.asc()))
+    if request.method == 'POST' and form.validate_on_submit():
+        question = Question(subject=form.subject.data, content=form.content.data, category="rating",
+                            create_date=datetime.datetime.now(), user=g.user, is_rating=True, is_favor=False)
+        db.session.add(question)
+        if form.is_major.data == 1 :
+            is_major = True
+        else:
+            is_major = False
+
+        semester_id = form.semester.data
+        department_id = form.department.data
+        rating = Rating(semester_id= semester_id, department_id=department_id,
+                        is_major=is_major, score=form.score.data, professor=form.professor.data)
+        semester = Semester.query.get(semester_id)
+        department = Department.query.get(department_id)
+        db.session.add(rating)
+        question.rating_set.append(rating)
+        semester.semester_set.append(rating)
+        department.department_set.append(rating)
+        g.user.point += 5
+        db.session.commit()
+        return redirect(url_for('main.index'))
+    return render_template('question/rating_form.html', form=form, semester_list=semester_list, department_list=department_list)
+
+@bp.route('/rating/detail/<int:question_id>/')
+def rating_detail(question_id):
+    form = AnswerForm()
+    question = Question.query.get_or_404(question_id)
+    category = Category.query.get(question.category).description
+    return render_template('question/rating_detail.html', question=question, form=form, category=category)
+
 
 
 @bp.route('/modify/<int:question_id>', methods=('GET', 'POST'))

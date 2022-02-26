@@ -35,3 +35,13 @@ class FavorForm(FlaskForm):
     favor_date = StringField('지정날짜', validators=[DataRequired('지정날짜는 필수입력 항목입니다.')])
     building = IntegerField('건물', validators=[DataRequired('건물은 필수입력 항목입니다.')])
     content = TextAreaField('내용', validators=[DataRequired('내용은 필수입력 항목입니다.')])
+
+
+class RatingForm(FlaskForm):
+    subject = StringField('강의명', validators=[DataRequired('강의명은 필수입력 항목입니다.')])
+    department = IntegerField('학과', validators=[DataRequired('설강학과는 필수입력 항목입니다.')])
+    score = IntegerField('평점', validators=[DataRequired('평점은 필수입력 항목입니다.')])
+    professor = StringField('', validators=[DataRequired('강의명은 필수입력 항목입니다.')])
+    semester = IntegerField('학기', validators=[DataRequired('학기는 필수입력 항목입니다.')])
+    content = TextAreaField('내용', validators=[DataRequired('내용은 필수입력 항목입니다.')])
+    is_major = IntegerField('전공/교양', validators=[DataRequired('전공/교양은 필수입력 항목입니다.')])

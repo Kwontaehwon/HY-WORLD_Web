@@ -1,0 +1,100 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container">
+    <h5 class="my-3 border-bottom pb-2">강의평가 등록</h5>
+    <form method="post" class="post-form my-3">
+        {{ form.csrf_token }}
+        <!-- 오류표시 Start -->
+        {% for field, errors in form.errors.items() %}
+        <div class="alert alert-danger" role="alert">
+            <strong>{{ form[field].label }}</strong>: {{ ', '.join(errors) }}
+        </div>
+        {% endfor %}
+        <!-- 오류표시 End -->
+        <div class="form-group">
+            <label for="subject">과목명</label>
+            <input type="text" class="form-control" name="subject" id="subject"
+                   value="{{ form.subject.data or '' }}">
+        </div>
+        <div class="form-group">
+            <label for="professor">교수명</label>
+            <input type="text" class="form-control" name="professor" id="professor"
+                   value="{{ form.professor.data or '' }}">
+        </div>
+        <div class="form-group">
+            <label for="semester">수강학기</label>
+            <select class="form-control selectpicker" name="semester" id="semester"  data-style="btn-white" value="{{ form.semester.data or '' }}">
+                {% for semester in semester_list %}
+                    {% if semester.id % 10 ==2 %}
+                        <optgroup label="{{semester.id // 100}}년">
+                        {% endif %}
+                        <option value={{semester.id}}>{{semester.semester_name}}</option>
+                        {% if semester.id % 10 ==1 %}
+                        </optgroup>
+                    {% endif %}
+                {% endfor %}
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="department">설강학과</label>
+            <select class="form-control selectpicker"  name="department" id="department" data-style="btn-white" value="{{ form.department.data or '' }}  ">
+                {% for department in department_list %}
+                    {% if department.id % 10 == 1 %}
+                        {% if department.id // 10 == 0 %}
+                            <optgroup label="공학대학">
+                       {% elif department.id // 10 == 1 %}
+                             <optgroup label="소프트웨어융합대학">
+                       {% elif department.id // 10 == 2 %}
+                            <optgroup label="과학기술융합대학">
+                       {% elif department.id // 10 == 3 %}
+                            <optgroup label="국제문화대학">
+                       {% elif department.id // 10 == 4 %}
+                            <optgroup label="언론정보대학">
+                       {% elif department.id // 10 == 5 %}
+                            <optgroup label="경상대학">
+                       {% elif department.id // 10 == 6 %}
+                            <optgroup label="디자인대학">
+                        {% elif department.id // 10 == 7 %}
+                            <optgroup label="예체능대학">
+                        {% endif %}
+                    {% endif %}
+                        <option value={{department.id}}>{{department.department_name}}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="is_major">전공/교양</label>
+            <select class="form-control selectpicker" name="is_major" id="is_major" data-style="btn-white" value="{{ form.is_major.data or '' }}">
+                <option value=1>전공</option>
+                <option value=0>교양</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label>평점</label>
+            <div class="star-rating space-x-4">
+            <input type="radio" id="5-stars" name="score" value="5" v-model="ratings"/>
+            <label for="5-stars" class="star pr-4">★</label>
+            <input type="radio" id="4-stars" name="score" value="4" v-model="ratings"/>
+            <label for="4-stars" class="star">★</label>
+            <input type="radio" id="3-stars" name="score" value="3" v-model="ratings"/>
+            <label for="3-stars" class="star">★</label>
+            <input type="radio" id="2-stars" name="score" value="2" v-model="ratings"/>
+            <label for="2-stars" class="star">★</label>
+            <input type="radio" id="1-star" name="score" value="1" v-model="ratings" />
+            <label for="1-star" class="star">★</label>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="content">내용</label>
+            <textarea class="form-control" name="content"
+                      id="content" rows="10">{{ form.content.data or '' }}</textarea>
+        </div>
+        <button type="submit" class="btn btn-warning" style="background-color: #ffa300; color:white" >작성</button>
+    </form>
+</div>
+
+
+
+{% endblock %}
+
+

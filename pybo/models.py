@@ -12,6 +12,28 @@ answer_voter = db.Table(
     db.Column('answer_id', db.Integer, db.ForeignKey('answer.id', ondelete='CASCADE'), primary_key=True)
 )
 
+class Department(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    department_name = db.Column(db.String(20), nullable=False)
+
+
+class Rating(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    professor = db.Column(db.String)
+    is_major = db.Column(db.Boolean)
+    department_id = db.Column(db.Integer, db.ForeignKey('department.id'))
+    department = db.relationship('Department', backref=db.backref('department_set'))
+    semester_id = db.Column(db.Integer, db.ForeignKey('semester.id'))
+    semester = db.relationship('Semester', backref=db.backref('semester_set'))
+    question = db.relationship('Question', backref=db.backref('rating_set'), uselist=False)
+    question_id = db.Column(db.Integer, db.ForeignKey('question.id', ondelete='CASCADE'))
+    score = db.Column(db.Integer)
+
+
+class Semester(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    semester_name = db.Column(db.String(20), nullable=False)
+
 
 class Favor(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -22,6 +44,7 @@ class Favor(db.Model):
     question_id = db.Column(db.Integer, db.ForeignKey('question.id', ondelete='CASCADE'))
     resolve_answer = db.relationship('Answer', backref=db.backref('resolve_answer'))
     resolve_answer_id = db.Column(db.Integer, db.ForeignKey('answer.id'))
+
 
 class Building(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -37,6 +60,7 @@ class Category(db.Model):
 class Question(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     is_favor = db.Column(db.Boolean)
+    is_rating = db.Column(db.Boolean)
     subject = db.Column(db.String(200), nullable=False)
     content = db.Column(db.Text(), nullable=False)
     create_date = db.Column(db.DateTime(), nullable=False)
@@ -65,6 +89,7 @@ class User(db.Model):
     password = db.Column(db.String(200), nullable=False)
     email = db.Column(db.String(120), unique=True, nullable=False)
     point = db.Column(db.Integer, default=0)
+    signup_date = db.Column(db.DateTime())
 
 
 class Comment(db.Model):

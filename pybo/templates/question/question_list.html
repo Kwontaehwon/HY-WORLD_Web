@@ -57,7 +57,11 @@
                     {% endif %}
                 </td>
                 <td class="text-left">
-                    <a href="{{ url_for('question.detail', question_id=question.id) }}" style="color : #512a0a">{{ question.subject }}</a>
+                    {% if question.is_rating %}
+                        <a href="{{ url_for('question.rating_detail', question_id=question.id) }}" style="color : #512a0a">{{ question.subject }}</a>
+                    {% else %}
+                        <a href="{{ url_for('question.detail', question_id=question.id) }}" style="color : #512a0a">{{ question.subject }}</a>
+                    {% endif %}
                     {% if question.answer_set|length > 0 %}
                     <span class="text-danger small ml-2">{{ question.answer_set|length }}</span>
                     {% endif %}
@@ -114,12 +118,14 @@
             {% endif %}
         </ul>
         <!-- 페이징처리 끝 -->
-        {% if category != "favor" %}
+        {% if category == "favor" %}
+            <a href="{{ url_for('question.create_favor') }}" class="btn btn-warning" style="background-color: #ffa300; color:white">품앗이 요청</a>
+        {% elif category == "rating" %}
+            <a href="{{ url_for('question.create_rating') }}" class="btn btn-warning" style="background-color: #ffa300; color:white">강의평가 작성</a>
+        {% else %}
             <a href="{{ url_for('question.create') }}" class="btn btn-warning" style="background-color: #ffc009; color:white">게시물 작성</a>
             <a href="{{ url_for('question.create_favor') }}" class="btn btn-warning" style="background-color: #ffa300; color:white">품앗이 요청</a>
-        {% else %}
-            <a href="{{ url_for('question.create_favor') }}" class="btn btn-warning" style="background-color: #ffa300; color:white">품앗이 요청</a>
-        {%endif %}
+        {% endif %}
     </div>
 </div>
     </div>
