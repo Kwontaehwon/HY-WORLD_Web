@@ -22,6 +22,7 @@ def environments():
         .group_by(question_voter.c.question_id).subquery()
     question_list = Question.query \
         .outerjoin(sub_query, Question.id == sub_query.c.question_id) \
+        .filter(Question.category != "rating") \
         .order_by(_nullslast(sub_query.c.num_voter.desc()), Question.create_date.desc())
     num = 0
     answer_list = []
@@ -42,7 +43,7 @@ def favor():
     favor_list = []
     for question in question_list:
         date_diff = (datetime.datetime.now() - question.create_date)
-        if date_diff < datetime.timedelta(days=7):
+        if date_diff < datetime.timedelta(days=7) and question.favor_set[0].resolve_answer_id == None:
             favor_list.append(question)
     json_list = []
     for favor in favor_list:

@@ -126,9 +126,11 @@
             <a href="{{ url_for('question.create_favor') }}" class="btn btn-warning" style="background-color: #ffa300; color:white">품앗이 요청</a>
         {% elif category == "rating" %}
             <a href="{{ url_for('question.create_rating') }}" class="btn btn-warning" style="background-color: #ffa300; color:white">강의평가 작성</a>
-        {% else %}
+        {% elif category == "" %}
             <a href="{{ url_for('question.create') }}" class="btn btn-warning" style="background-color: #ffc009; color:white">게시물 작성</a>
             <a href="{{ url_for('question.create_favor') }}" class="btn btn-warning" style="background-color: #ffa300; color:white">품앗이 요청</a>
+        {% else %}
+            <a href="{{ url_for('question.create') }}" class="btn btn-warning" style="background-color: #ffc009; color:white">게시물 작성</a>
         {% endif %}
     </div>
 </div>

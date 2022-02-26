@@ -190,4 +190,10 @@ $(document).ready(function(){
     });
 });
 </script>
+<script src="{{ url_for('static', filename='simplemde.min.js') }}"></script>
+<link rel="stylesheet" href="{{ url_for('static', filename='simplemde.min.css') }}">
+<script>
+
+    var simplemde = new SimpleMDE({element: document.getElementById("content"), spellChecker: false});
+</script>
 {% endblock %}

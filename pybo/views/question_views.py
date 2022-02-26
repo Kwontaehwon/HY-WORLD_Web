@@ -65,6 +65,7 @@ def _list():
         .group_by(question_voter.c.question_id).subquery()
     answer_list = Question.query \
         .outerjoin(sub_query, Question.id == sub_query.c.question_id) \
+        .filter(Question.category != "rating") \
         .order_by(_nullslast(sub_query.c.num_voter.desc()), Question.create_date.desc())
     for question in answer_list:
         date_diff = (datetime.datetime.now() - question.create_date)
@@ -73,7 +74,7 @@ def _list():
             num += 1
     # 페이징
     question_list = question_list.paginate(page, per_page=10)
-    return render_template('question/question_list.html', question_list=question_list, best_list = best_list, page=page, kw=kw, so=so)
+    return render_template('question/question_list.html', question_list=question_list, best_list = best_list, page=page, kw=kw, so=so, category="")
 
 @bp.route('/list/<string:category>')
 @login_required
@@ -116,9 +117,15 @@ def classify(category):
                     sub_query.c.username.ilike(search)  # 답변작성자
                     ) \
             .distinct()
+    sub_query = db.session.query(question_voter.c.question_id, func.count('*').label('num_voter')) \
+        .group_by(question_voter.c.question_id).subquery()
+    answer_list = Question.query \
+        .outerjoin(sub_query, Question.id == sub_query.c.question_id) \
+        .filter(Question.category != "rating", Question.category == category) \
+        .order_by(_nullslast(sub_query.c.num_voter.desc()), Question.create_date.desc())
     best_list = []
     num = 0
-    for question in question_list:
+    for question in answer_list:
         date_diff = (datetime.datetime.now() - question.create_date)
         if date_diff < datetime.timedelta(days=7) and num < 3:
             best_list.append(question)
