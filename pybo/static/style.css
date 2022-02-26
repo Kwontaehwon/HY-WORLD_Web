@@ -1,3 +1,8 @@
+.comment {
+  border-top: dotted 1px #ddd;
+  font-size: 0.7em;
+}
+
 .star-rating {
   display: flex;
   flex-direction: row-reverse;
@@ -26,28 +31,4 @@
 .star-rating label:hover,
 .star-rating label:hover ~ label {
   -webkit-text-fill-color: #fff58c;
-}
-
-.star-ratings {
-  color: #aaa9a9;
-  position: relative;
-  unicode-bidi: bidi-override;
-  width: max-content;
-}
-
-.star-ratings-fill {
-  color: #fff58c;
-  padding: 0;
-  position: absolute;
-  z-index: 1;
-  display: flex;
-  top: 0;
-  left: 0;
-  overflow: hidden;
-  -webkit-text-fill-color: gold;
-}
-
-.star-ratings-base {
-  z-index: 0;
-  padding: 0;
 }
