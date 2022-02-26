@@ -20,17 +20,20 @@
               <a href="{{ url_for('main.index')}}"><img src="{{ url_for('static', filename='img/logo.png') }}" class="img-fluid pr-2"></a>
             </div>
           </div>
-          <div class="col-6 d-flex justify-content-between align-self-center search">
+          <div class="col-7 d-flex justify-content-between align-self-center search">
               &nbsp;
               <span class="font-weight-bold topic align-self-center pl-3 navhov"> <a href="{{ url_for('question.classify', category='general') }}">자유게시판</a></span>
               <span class="font-weight-bold topic align-self-center pl-3 navhov"> <a href="{{ url_for('question.classify', category='information') }}" >정보게시판</a></span>
               <span class="font-weight-bold topic align-self-center pl-3 navhov"> <a href="{{ url_for('question.classify', category='promotion') }}">홍보게시판</a></span>
               <span class="font-weight-bold topic align-self-center pl-3 navhov"> <a href="{{ url_for('question.classify', category='metaverse') }}">메타버스</a></span>
               <span class="font-weight-bold topic align-self-center pl-3 navhov"> <a href="{{ url_for('question.classify', category='issue') }}" >시사이슈</a></span>
+              <span class="font-weight-bold topic align-self-center pl-3 navhov"> <a href="{{ url_for('question.classify', category='rating') }}" >강의평가</a></span>
+              <span class="font-weight-bold topic align-self-center pl-3 navhov"> <a href="{{ url_for('question.classify', category='studygroup') }}" >스터디 모집</a></span>
               <span class="font-weight-bold topic align-self-center pl-3 navhov"> <a href="{{ url_for('question.classify', category='favor') }}" >품앗이</a></span>
+
               &nbsp;
             </div>
-            <div class="col-4" style="padding-top: 3px">
+            <div class="col-3" style="padding-top: 3px">
               <div class="row ">
                 <div class="dropdown topic align-self-center pl-3">
                      &nbsp;
@@ -55,7 +58,7 @@
                     </div>
                     <div class="row pt-2">
                       <div class="col-6">
-                        <span>Categories</span>
+                        <span>게시판</span>
                          <ul class="px-3 categories">
                            <li><a href="{{ url_for('question.classify', category='general') }}" >자유게시판</a></li>
                            <li><a href="{{ url_for('question.classify', category='information') }}">정보게시판</a></li>
@@ -66,6 +69,7 @@
                          <ul class="px-3 categories">
                            <li><a href="{{ url_for('question.classify', category='promotion') }}">홍보게시판</a></li>
                            <li><a href="{{ url_for('question.classify', category='metaverse') }}">메타버스</a></li>
+                             <li><a href="{{ url_for('question.classify', category='studygroup') }}">스터디 모집</a></li>
                          </ul>
                       </div>
                     </div>
