@@ -1,0 +1,110 @@
+{% extends 'base.html' %}
+{% block content %}
+<link rel="stylesheet" type="text/css"  href="{{ url_for('static', filename='card_style.css') }}">
+    <div class="row border-bottom py-2 my-4 mx-2 pl-2">
+    <h3 class="pb-2 mb-3"><b>&nbsp;{{restaurant.restaurant_name}}</b></h3>
+        &nbsp;&nbsp;&nbsp;
+    <span class="badge badge-pill py-2 center-block p-2 bb-4"  style="min-width: 100px; height:30px; background-color: #cccccc; vertical-align: center">
+            {{restaurant.location}}
+    </span>
+    &nbsp;&nbsp;&nbsp;
+    <span class="badge badge-pill py-2 center-block p-2 bb-4"  style="min-width: 100px; height:30px; background-color: #cccccc; vertical-align: center">
+            아침 : {% if restaurant.breakfast_time==None %}  - {% else %} {{restaurant.breakfast_time}} {% endif %}
+    </span>
+    &nbsp;&nbsp;&nbsp;
+    <span class="badge badge-pill py-2 center-block p-2 bb-4"  style="min-width: 100px; height:30px; background-color: #cccccc; vertical-align: center">
+            점심 : {{restaurant.lunch_time}}
+    </span>
+    &nbsp;&nbsp;&nbsp;
+    <span class="badge badge-pill py-2 center-block p-2 bb-4"  style="min-width: 100px; height:30px; background-color: #cccccc; vertical-align: center">
+            저녁 : {% if restaurant.dinner_time==None %}  - {% else %} {{restaurant.dinner_time}} {% endif %}
+    </span>
+    </div>
+    {% if provide_days ==6 %}
+        <div class="badge badge-pill badge-warning p-2 text-center align-self-center align-middle center-block"  style="font-size: 12px;  color : #8c6239; background-color: #ffde55; min-width: 100px;  vertical-align: center">
+            <span style="font-size:20px">
+                아침
+            </span>
+        </div>
+        <div class="row">
+        {% for breakfast in breakfast_list %}
+            <div class="col-lg-2 pt-3" >
+                <div class="card card-margin" style=" min-height: 180px">
+                    <div class="card-header no-border pt-2">
+                        <h6 class="card-title pt-2">{{daylist[(loop.index-1) % provide_days]}}</h6>
+                    </div>
+                    <div class="card-body pt-0">
+                        <div class="widget-49">
+                            <div class="widget-49-title-wrapper">
+                                <div class="widget-49-meeting-info">
+                                    {% for menu in breakfast %}
+                                    <span class="widget-49-pro-title">{{menu}}</span>
+                                    {% endfor %}
+                                    <span class="widget-49-meeting-time">{{restaurant.breakfast_time}}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+        </div>
+    {% endif %}
+    <div class="badge badge-pill badge-warning p-2 text-center align-self-center align-middle center-block"  style="font-size: 12px;  color : #8c6239; background-color: #ffde55; min-width: 100px;  vertical-align: center">
+            <span style="font-size:20px">
+                점심
+            </span>
+        </div>
+        <div class="row">
+        {% for lunch in lunch_list %}
+            <div class="col-lg-2 pt-3" >
+                <div class="card card-margin" style=" min-height: 180px">
+                    <div class="card-header no-border">
+                        <h5 class="card-title"><b>{{daylist[(loop.index-1) % provide_days]}}</b></h5>
+                    </div>
+                    <div class="card-body pt-0">
+                        <div class="widget-49">
+                            <div class="widget-49-title-wrapper">
+                                <div class="widget-49-meeting-info">
+                                    {% for menu in lunch %}
+                                    <span class="widget-49-pro-title">{{menu}}</span>
+                                    {% endfor %}
+                                    <span class="widget-49-meeting-time">{{restaurant.lunch_time}}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+        </div>
+    <div class="badge badge-pill badge-warning p-2 text-center align-self-center align-middle center-block"  style="font-size: 12px;  color : #8c6239; background-color: #ffde55; min-width: 100px;  vertical-align: center">
+            <span style="font-size:20px">
+                저녁
+            </span>
+        </div>
+        <div class="row">
+            {% for dinner in dinner_list %}
+            <div class="col-lg-2 pt-3" >
+                <div class="card card-margin" style=" min-height: 180px">
+                    <div class="card-header no-border">
+                        <h5 class="card-title"><b>{{daylist[(loop.index-1) % provide_days]}}</b></h5>
+                    </div>
+                    <div class="card-body pt-0">
+                        <div class="widget-49">
+                            <div class="widget-49-title-wrapper">
+                                <div class="widget-49-meeting-info">
+                                    {% for menu in dinner %}
+                                    <span class="widget-49-pro-title">{{menu}}</span>
+                                    {% endfor %}
+                                    <span class="widget-49-meeting-time">{{restaurant.dinner_time}}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        {% endfor %}
+        </div>
+{% endblock %}

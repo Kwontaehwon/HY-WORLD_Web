@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+{% block content %}
+<link rel="stylesheet" type="text/css"  href="{{ url_for('static', filename='card_style.css') }}">
+<div class="container">
+    <h4 class="pt-2 mt-3"><strong>학식정보</strong></h4>
+    <div class="row">
+    {% for restaurant in restaurant_list %}
+        <div class="col-lg-4 pt-5" >
+            <div class="card card-margin">
+                <div class="card-header no-border">
+                    <h5 class="card-title"></h5>
+                </div>
+                <div class="card-body pt-0">
+                    <div class="widget-49">
+                        <div class="widget-49-title-wrapper">
+                            <div class="widget-49-meeting-info">
+                                <span class="widget-49-pro-title">교직원식당</span>
+                                <span class="widget-49-meeting-time">{{restaurant.location}}</span>
+                            </div>
+                        </div>
+                        <ul class="widget-49-meeting-points" style="padding-inline-start:10px">
+                            <li class="widget-49-meeting-item">
+                                <span>
+                                    아침 : {% if restaurant.breakfast_time==None %}  - {% else %} {{restaurant.breakfast_time}} {% endif %}
+                                </span>
+                            </li>
+                            <li class="widget-49-meeting-item">
+                                <span>
+                                    점심 : {% if restaurant.lunch_time==None %}  - {% else %} {{restaurant.lunch_time}} {% endif %}
+                                </span>
+                            </li>
+                            <li class="widget-49-meeting-item">
+                                <span>
+                                    저녁 : {% if restaurant.dinner_time==None %}  - {% else %} {{restaurant.dinner_time}} {% endif %}
+                                </span>
+                            </li>
+                        </ul>
+                        <div class="widget-49-meeting-action">
+                            <a href="{{ url_for('information.menu_detail', restaurant_id=restaurant.id) }}" class="btn btn-warning" style="background-color: #ffa300; color:white">메뉴 확인</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% if loop.index == 3 %}
+        </div>
+        <div class="row">
+    {% endif %}
+    {% endfor %}
+    </div>
+</div>
+{% endblock %}

@@ -17,6 +17,15 @@ class Department(db.Model):
     department_name = db.Column(db.String(20), nullable=False)
 
 
+class Restaurant(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    restaurant_name = db.Column(db.String(20))
+    location = db.Column(db.String(30))
+    breakfast_time = db.Column(db.String(30))
+    lunch_time = db.Column(db.String(30))
+    dinner_time = db.Column(db.String(30))
+
+
 class Rating(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     professor = db.Column(db.String)
