@@ -12,6 +12,7 @@ answer_voter = db.Table(
     db.Column('answer_id', db.Integer, db.ForeignKey('answer.id', ondelete='CASCADE'), primary_key=True)
 )
 
+
 class Department(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     department_name = db.Column(db.String(20), nullable=False)
