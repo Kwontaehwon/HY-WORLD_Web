@@ -115,6 +115,10 @@
                         {% if g.user != answer.user %}
                         <a href="{{ url_for('vote.answer', answer_id=answer.id) }}"
                                class="recommend btn btn-warning" style="background-color: #ffc009; color:white">추천</a>
+                            {% if question.is_favor == True and question.favor_set[0].resolve_answer_id == None and question.user == g.user and answer.user_id != g.user.id %}
+                                <a href="#" data-uri="{{ url_for('vote.resolve', answer_id=answer.id) }}"
+                                    class="resolve btn btn-warning" style="background-color: #ffa300; color: white;">채택</a>
+                            {% endif %}
                         {% else %}
                             <a href="{{ url_for('answer.modify', answer_id=answer.id) }}"
                                 class="btn btn-sm btn-outline-secondary">수정</a>
