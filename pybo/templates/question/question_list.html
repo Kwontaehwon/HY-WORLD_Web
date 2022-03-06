@@ -38,18 +38,27 @@
         <table class="table">
             <thead>
             <tr class="text-center table-active">
-                <th>번호</th>
-                <th>추천</th>
-                <th style="width:50%">제목</th>
-                <th>글쓴이</th>
-                <th>작성일시</th>
+                {% if request.MOBILE %}
+                    <th>추천</th>
+                    <th style="width:50%">제목</th>
+                    <th style="width:30%">글쓴이</th>
+                    <th>작성일시</th>
+                {% else %}
+                    <th>번호</th>
+                    <th>추천</th>
+                    <th style="width:50%">제목</th>
+                    <th style="width:30%">글쓴이</th>
+                    <th>작성일시</th>
+                {% endif %}
             </tr>
             </thead>
             <tbody>
             {% if question_list %}
             {% for question in question_list.items %}
             <tr class="text-center">
+                {% if not request.MOBILE %}
                 <td>{{ question_list.total - ((question_list.page-1) * question_list.per_page) - loop.index0 }}</td>
+                {% endif %}
                 <td>
                     {% if question.voter|length > 0 %}
                     <span class="badge badge-warning px-2 py-1" >{{ question.voter|length }}</span>
