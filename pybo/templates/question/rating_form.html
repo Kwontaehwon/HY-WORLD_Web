@@ -104,8 +104,15 @@
 <script src="{{ url_for('static', filename='simplemde.min.js') }}"></script>
 <link rel="stylesheet" href="{{ url_for('static', filename='simplemde.min.css') }}">
 <script>
+    var filter = "win16|win32|win64|macintel|mac|"; // PC일 경우 가능한 값
+    if( navigator.platform) {
+         if( filter.indexOf(navigator.platform.toLowerCase())<0 ) {
 
-    var simplemde = new SimpleMDE({element: document.getElementById("content"), spellChecker: false});
+         }
+         else {
+               var simplemde = new SimpleMDE({element: document.getElementById("content"), spellChecker: false});
+         }
+    }
 </script>
 {% endblock %}
 

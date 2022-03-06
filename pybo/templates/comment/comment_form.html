@@ -1,16 +1,33 @@
 {% extends 'base.html' %}
 {% block content %}
 <div class="container my-3">
-    <h5 class="border-bottom pb-2">댓글등록하기</h5>
+    <h5 class="border-bottom pb-2">대댓글 등록하기</h5>
     <form method="post" class="post-form my-3">
         {{ form.csrf_token }}
         {% include "form_errors.html" %}
         <div class="form-group">
-            <label for="content">댓글내용</label>
+            <label for="content">대댓글 내용</label>
             <textarea class="form-control"name="content" id="content"
                       rows="3">{{ form.content.data or '' }}</textarea>
         </div>
-        <button type="submit" class="btn btn-primary">저장하기</button>
+        <button type="submit" class="btn btn-warning">대댓글 작성</button>
     </form>
 </div>
+{% endblock %}
+
+{% block script %}
+
+<script src="{{ url_for('static', filename='simplemde.min.js') }}"></script>
+<link rel="stylesheet" href="{{ url_for('static', filename='simplemde.min.css') }}">
+<script>
+    var filter = "win16|win32|win64|macintel|mac|"; // PC일 경우 가능한 값
+    if( navigator.platform) {
+         if( filter.indexOf(navigator.platform.toLowerCase())<0 ) {
+
+         }
+         else {
+               var simplemde = new SimpleMDE({element: document.getElementById("content"), spellChecker: false});
+         }
+    }
+</script>
 {% endblock %}
