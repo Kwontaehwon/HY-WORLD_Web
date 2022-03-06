@@ -15,25 +15,23 @@
     <section class="head bg-white">
       <div class="container">
         <div class="row">
-          <div class="col-2 align-self-center drop">
+          <div class="col-lg-2 col-md-3 align-self-center drop">
             <div class="dropdown">
               <a href="{{ url_for('main.index')}}"><img src="{{ url_for('static', filename='img/logo.png') }}" class="img-fluid pr-2"></a>
             </div>
           </div>
-          <div class="col-7 d-flex justify-content-between align-self-center search">
+          <div class="col-lg-7 d-none d-lg-block d-xl-flex justify-content-between align-self-center search">
               &nbsp;
               <span class="font-weight-bold topic align-self-center pl-3 navhov"> <a href="{{ url_for('question.classify', category='general') }}">자유게시판</a></span>
               <span class="font-weight-bold topic align-self-center pl-3 navhov"> <a href="{{ url_for('question.classify', category='information') }}" >정보게시판</a></span>
               <span class="font-weight-bold topic align-self-center pl-3 navhov"> <a href="{{ url_for('question.classify', category='promotion') }}">홍보게시판</a></span>
               <span class="font-weight-bold topic align-self-center pl-3 navhov"> <a href="{{ url_for('question.classify', category='metaverse') }}">메타버스</a></span>
               <span class="font-weight-bold topic align-self-center pl-3 navhov"> <a href="{{ url_for('question.classify', category='issue') }}" >시사이슈</a></span>
-              <span class="font-weight-bold topic align-self-center pl-3 navhov"> <a href="{{ url_for('question.classify', category='rating') }}" >강의평가</a></span>
               <span class="font-weight-bold topic align-self-center pl-3 navhov"> <a href="{{ url_for('question.classify', category='studygroup') }}" >스터디 모집</a></span>
               <span class="font-weight-bold topic align-self-center pl-3 navhov"> <a href="{{ url_for('question.classify', category='favor') }}" >품앗이</a></span>
-
               &nbsp;
             </div>
-            <div class="col-3" style="padding-top: 3px">
+            <div class="col-lg-3 col-md-8" style="padding-top: 3px">
               <div class="row ">
                 <div class="dropdown topic align-self-center pl-3">
                      &nbsp;
