@@ -5,33 +5,37 @@
 </head>
 <body>
 <section class="user_summary py-5">
-<div class="container">
+<div class="container px-4">
   <div class="row d-flex justify-content-between pl-3 pr-2">
     <div class="row">
-      <div class="text-white px-0">
+      <div class="text-white px-2">
           <h5><b>{{user.username}} </b>님</h5>
         <p>POINT : {{user.point}}점<br>
         레벨 : {{user.point // 25}}</p>
       </div>
       <ul class="list-group list-group-horizontal border-left align-self-center ml-3 px-3">
+          {% if question_num >= 3 %}
         <li class="list-item"><a href="#"><img src="{{ url_for('static', filename='img/sprout.png') }}"></a></li>
+          {% endif %}
+          {% if vote >= 3 %}
         <li class="list-item"><a href="#"><img src="{{ url_for('static',  filename='img/give-love.png') }}"></a></li>
+          {% endif %}
       </ul>
     </div>
   </div>
 </div>
 </section>
 <section class="user-menu">
-<div class="container">
-    <span class="row mt-5">다음 레벨까지 <b>&nbsp;{{user.point % 25}} </b>점 남았어요!</span>
-  <h5 class="row mt-5">함께한 기록</h5>
-  <div class="row mb-5">
+<div class="container px-4">
+    <span class="row mt-5 px-2">다음 레벨까지 <b>&nbsp;{{user.point % 25}} </b>점 남았어요!</span>
+  <h5 class="row mt-5 px-2 ">함께한 기록</h5>
+  <div class="row mb-5 px-2">
     <span class="mr-1">추천</span><i class="fas fa-heart text-danger pr-2"></i> <p class="pr-2 font-weight-bold">{{ vote }}</p>
     <span class="mr-2">작성 게시물</span><p class="pr-2 font-weight-bold">{{question_num}}</p>
     <span class="mr-2">작성 댓글</span><p class="pr-1 font-weight-bold">{{answer_num}}</p>
   </div>
   <section class="activity-long">
-    <div class="container px-0">
+    <div class="container">
       <div class="row">
          <div class="col-6 px-0">
           <h6 class="text-body font-weight-bold pb-3">작성한 게시물</h6>
@@ -73,8 +77,8 @@
   </section>
 
 </div>
-  <section class="user-badges my-5">
-    <div class="container px-0">
+  <section class="user-badges my-5 px-2">
+    <div class="container">
       <h6 class="font-weight-bold text-body">획득한 뱃지</h6>
       <div class="row badges">
       {% if question_num >= 3 %}
