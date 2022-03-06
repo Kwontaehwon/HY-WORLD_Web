@@ -210,6 +210,7 @@ def create_rating():
         return redirect(url_for('main.index'))
     return render_template('question/rating_form.html', form=form, semester_list=semester_list, department_list=department_list)
 
+
 @bp.route('/rating/detail/<int:question_id>/')
 def rating_detail(question_id):
     form = AnswerForm()
@@ -255,7 +256,8 @@ def delete(question_id):
     if g.user != question.user:
         flash('삭제권한이 없습니다')
         return redirect(url_for('question.detail', question_id=question_id))
-    db.session.delete(question.favor_set[0])
+    if question.is_favor == True :
+        db.session.delete(question.favor_set[0])
     db.session.delete(question)
     db.session.commit()
     return redirect(url_for('question._list'))

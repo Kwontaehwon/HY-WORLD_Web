@@ -20,8 +20,11 @@ def create_question(question_id):
         comment = Comment(user=g.user, content=form.content.data, create_date=datetime.now(), question=question)
         db.session.add(comment)
         db.session.commit()
-        return redirect('{}#comment_{}'.format(
-            url_for('question.detail', question_id=question_id), comment.id))
+        if question.is_rating:
+            return redirect(url_for('question.rating_detail', question_id=answer.question.id))
+        else :
+            return redirect('{}#comment_{}'.format(
+                url_for('question.detail', question_id=question_id), comment.id))
     return render_template('comment/comment_form.html', form=form)
 
 
@@ -38,8 +41,11 @@ def modify_question(comment_id):
             form.populate_obj(comment)
             comment.modify_date = datetime.now()  # 수정일시 저장
             db.session.commit()
-            return redirect('{}#comment_{}'.format(
-                url_for('question.detail', question_id=comment.question.id), comment.id))
+            if question.is_rating:
+                return redirect(url_for('question.rating_detail', question_id=answer.question.id))
+            else:
+                return redirect('{}#comment_{}'.format(
+                    url_for('question.detail', question_id=comment.question.id), comment.id))
     else:
         form = CommentForm(obj=comment)
     return render_template('comment/comment_form.html', form=form)
@@ -63,12 +69,16 @@ def delete_question(comment_id):
 def create_answer(answer_id):
     form = CommentForm()
     answer = Answer.query.get_or_404(answer_id)
+    question = answer.question
     if request.method == 'POST' and form.validate_on_submit():
         comment = Comment(user=g.user, content=form.content.data, create_date=datetime.now(), answer=answer)
         db.session.add(comment)
         db.session.commit()
-        return redirect('{}#comment_{}'.format(
-            url_for('question.detail', question_id=answer.question.id), comment.id))
+        if question.is_rating:
+            return redirect(url_for('question.rating_detail', question_id=answer.question.id))
+        else :
+            return redirect('{}#comment_{}'.format(
+                url_for('question.detail', question_id=answer.question.id), comment.id))
     return render_template('comment/comment_form.html', form=form)
 
 
@@ -76,6 +86,7 @@ def create_answer(answer_id):
 @login_required
 def modify_answer(comment_id):
     comment = Comment.query.get_or_404(comment_id)
+    question = Question.query.get(comment.answer.question.id)
     if g.user != comment.user:
         flash('수정권한이 없습니다')
         return redirect(url_for('question.detail', question_id=comment.answer.id))
@@ -85,8 +96,11 @@ def modify_answer(comment_id):
             form.populate_obj(comment)
             comment.modify_date = datetime.now()  # 수정일시 저장
             db.session.commit()
-            return redirect('{}#comment_{}'.format(
-                url_for('question.detail', question_id=comment.answer.question.id), comment.id))
+            if question.is_rating:
+                return redirect(url_for('question.rating_detail', question_id=comment.answer.question.id))
+            else :
+                return redirect('{}#comment_{}'.format(
+                    url_for('question.detail', question_id=comment.answer.question.id), comment.id))
     else:
         form = CommentForm(obj=comment)
     return render_template('comment/comment_form.html', form=form)
@@ -97,9 +111,13 @@ def modify_answer(comment_id):
 def delete_answer(comment_id):
     comment = Comment.query.get_or_404(comment_id)
     question_id = comment.answer.question.id
+    question = Question.query.get(question_id)
     if g.user != comment.user:
         flash('삭제권한이 없습니다')
         return redirect(url_for('question.detail', question_id=question_id))
     db.session.delete(comment)
     db.session.commit()
-    return redirect(url_for('question.detail', question_id=question_id))
+    if question.is_rating:
+        return redirect(url_for('question.rating_detail', question_id=question.id))
+    else:
+        return redirect(url_for('question.detail', question_id=question_id))

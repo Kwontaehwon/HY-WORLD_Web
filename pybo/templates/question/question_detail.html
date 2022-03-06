@@ -51,15 +51,15 @@
                     </div>
                     <div class="d-flex justify-content-between my-2">
                         <div class="my-1">
-                        <ul class="list-group list-group-horizontal" >
-                          <li><i class="fas fa-solid fa-comment" style="color: #ffde55;"> {{ question.answer_set|length }}</i></li>
-                          <li><i class="fas fa-solid fa-thumbs-up px-4 "  style="color: #ffa300"> {{ question.voter|length }}</i></li>
-                        </ul>
-                    </div>
+                            <ul class="list-group list-group-horizontal" >
+                              <li><i class="fas fa-solid fa-thumbs-up  "  style="color: #ffa300"> {{ question.voter|length }}</i></li>
+                              <li><i class="fas fa-solid fa-comment px-4" style="color: #ffde55;"> {{ question.answer_set|length }}</i></li>
+                            </ul>
+                        </div>
                         <div class="my-1">
                         {% if g.user != question.user %}
                             <a href="{{ url_for('vote.question', question_id=question.id) }}"
-                               class="btn btn-warning" style="background-color: #ffc009; color:white">추천</a>
+                               class="recommend btn btn-warning" style="background-color: #ffc009; color:white">추천</a>
                         {% else %}
                             <a href="{{ url_for('question.modify', question_id=question.id) }}"
                                class="btn btn-sm btn-outline-secondary">수정</a>
@@ -68,30 +68,6 @@
                         {% endif %}
                         </div>
                     </div>
-
-                    <!-- 질문 댓글 Start -->
-                    {% if question.comment_set|length > 0 %}
-                    <div class="mt-3">
-                    {% for comment in question.comment_set %}
-                        <a name="comment_{{ comment.id }}"></a>
-                        <div class="comment py-2 text-muted">
-                            <span style="white-space: pre-line;">{{ comment.content }}</span>
-                            <span>
-                                - {{ comment.user.username }}, {{ comment.create_date|datetime }}
-                                {% if comment.modify_date %}
-                                (수정:{{ comment.modify_date|datetime }})
-                                {% endif %}
-                            </span>
-                            {% if g.user == comment.user %}
-                            <a href="{{ url_for('comment.modify_question', comment_id=comment.id) }}" class="small">수정</a>,
-                            <a href="#" class="small delete"
-                               data-uri="{{ url_for('comment.delete_question', comment_id=comment.id) }}">삭제</a>
-                            {% endif %}
-                        </div>
-                    {% endfor %}
-                    </div>
-                    {% endif %}
-                    <!-- 질문 댓글 End -->
                 </div>
             </div>
         </div>
@@ -100,21 +76,7 @@
     {% for answer in question.answer_set %}
     <a name="answer_{{ answer.id }}"></a>
     <div class="row my-3">
-        <div class="col-1">  <!-- 추천영역 -->
-            <div class="bg-light text-center p-3 border font-weight-bolder mb-1">{{ answer.voter|length }}</div>
-            <a href="#" data-uri="{{ url_for('vote.answer', answer_id=answer.id) }}"
-                class="recommend btn btn-sm btn-secondary btn-block my-1">추천</a>
-            {% if question.is_favor == True and question.favor_set[0].resolve_answer_id == None and question.user == g.user and answer.user_id != g.user.id %}
-                 <a href="#" data-uri="{{ url_for('vote.resolve', answer_id=answer.id) }}"
-                    class="resolve btn btn-sm btn-secondary btn-block my-1">채택</a>
-            {% endif %}
-            {% if question.is_favor == True and question.favor_set[0].resolve_answer_id == answer.id %}
-                <div class="badge badge-warning text-center" style="vertical-align: middle; width: 65px; background-color: #ffa300">
-                    <div class="my-2">채택됨</div>
-                </div>
-            {% endif %}
-        </div>
-        <div class="col-11">  <!-- 답변영역 -->
+        <div class="col-12">  <!-- 답변영역 -->
             {% if question.is_favor == True and question.favor_set[0].resolve_answer_id == answer.id %}
             <div class="card" style="border-color : #ffa300; border-width: 2px;">  <!-- border-color 하면 색깔 들어감 -->
             {% else %}
@@ -134,14 +96,33 @@
                             <div>{{ answer.create_date|datetime }}</div>
                         </div>
                     </div>
-                    {% if g.user == answer.user %}
-                    <div class="my-3">
-                        <a href="{{ url_for('answer.modify', answer_id=answer.id) }}"
-                            class="btn btn-sm btn-outline-secondary">수정</a>
-                        <a href="#" class="delete btn btn-sm btn-outline-secondary "
-                            data-uri="{{ url_for('answer.delete', answer_id=answer.id) }}">삭제</a>
+                    <div class="d-flex justify-content-between my-2">
+                        <div class="my-1">
+                            <ul class="list-group list-group-horizontal" >
+                                <li><i class="fas fa-solid fa-thumbs-up "  style="color: #ffa300"> {{ answer.voter|length }}</i></li>
+                              <li><i class="fas fa-solid fa-comments px-4 " style="color: #ffde55;"> {{ answer.comment_set|length }}</i></li>
+
+                            </ul>
+                        </div>
+                        <div class="my-1">
+                        <a href="{{ url_for('comment.create_answer', answer_id=answer.id) }}"
+                           class="small px-2"><small>대댓글 추가 ..</small></a>
+                        {% if question.is_favor == True and question.favor_set[0].resolve_answer_id == answer.id %}
+                            <div class="badge badge-warning text-center" style="vertical-align: middle; width: 65px; background-color: #ffa300">
+                                    <div class="my-2" >채택됨</div>
+                             </div>
+                        {% endif %}
+                        {% if g.user != answer.user %}
+                        <a href="{{ url_for('vote.answer', answer_id=answer.id) }}"
+                               class="recommend btn btn-warning" style="background-color: #ffc009; color:white">추천</a>
+                        {% else %}
+                            <a href="{{ url_for('answer.modify', answer_id=answer.id) }}"
+                                class="btn btn-sm btn-outline-secondary">수정</a>
+                            <a href="#" class="delete btn btn-sm btn-outline-secondary "
+                                data-uri="{{ url_for('answer.delete', answer_id=answer.id) }}">삭제</a>
+                        {% endif %}
+                        </div>
                     </div>
-                    {% endif %}
                     <!-- 답변 댓글 Start -->
                     {% if answer.comment_set|length > 0 %}
                     <div class="mt-3">
@@ -165,8 +146,7 @@
                     </div>
                     {% endif %}
                     <div>
-                        <a href="{{ url_for('comment.create_answer', answer_id=answer.id) }}"
-                           class="small"><small>대댓글 추가 ..</small></a>
+
                     </div>
                     <!-- 답변 댓글 End -->
                 </div>
@@ -224,4 +204,6 @@ $(document).ready(function(){
          }
     }
 </script>
+<script src="https://kit.fontawesome.com/433493218b.js" crossorigin="anonymous"></script>
+
 {% endblock %}

@@ -21,8 +21,11 @@ def create(question_id):
         answer = Answer(content=content, create_date=datetime.now(), user=g.user)
         question.answer_set.append(answer)
         db.session.commit()
-        return redirect('{}#answer_{}'.format(
-            url_for('question.detail', question_id=question_id), answer.id))
+        if question.is_rating :
+            return redirect(url_for('question.rating_detail', question_id=answer.question.id))
+        else :
+            return redirect('{}#answer_{}'.format(
+                url_for('question.detail', question_id=question_id), answer.id))
     return render_template('question/question_detail.html', question=question, form=form)
 
 
@@ -39,8 +42,11 @@ def modify(answer_id):
             form.populate_obj(answer)
             answer.modify_date = datetime.now()  # 수정일시 저장
             db.session.commit()
-            return redirect('{}#answer_{}'.format(
-                url_for('question.detail', question_id=answer.question.id), answer.id))
+            if answer.question.is_rating:
+                return redirect(url_for('question.rating_detail', question_id=answer.question.id))
+            else :
+                return redirect('{}#answer_{}'.format(
+                    url_for('question.detail', question_id=answer.question.id), answer.id))
     else:
         form = AnswerForm(obj=answer)
     return render_template('answer/answer_form.html', answer=answer, form=form)
@@ -51,9 +57,13 @@ def modify(answer_id):
 def delete(answer_id):
     answer = Answer.query.get_or_404(answer_id)
     question_id = answer.question.id
+    question = answer.question
     if g.user != answer.user:
         flash('삭제권한이 없습니다')
     else:
         db.session.delete(answer)
         db.session.commit()
-    return redirect(url_for('question.detail', question_id=question_id))
+    if question.is_rating:
+        return redirect(url_for('question.rating_detail', question_id=answer.question.id))
+    else :
+        return redirect(url_for('question.detail', question_id=question_id))
