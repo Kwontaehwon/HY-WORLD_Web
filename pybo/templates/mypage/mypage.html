@@ -29,10 +29,13 @@
 <div class="container px-4">
     <span class="row mt-5 px-2">다음 레벨까지 <b>&nbsp;{{user.point % 25}} </b>점 남았어요!</span>
   <h5 class="row mt-5 px-2 ">함께한 기록</h5>
-  <div class="row mb-5 px-2">
+  <div class="row px-2">
     <span class="mr-1">추천</span><i class="fas fa-heart text-danger pr-2"></i> <p class="pr-2 font-weight-bold">{{ vote }}</p>
     <span class="mr-2">작성 게시물</span><p class="pr-2 font-weight-bold">{{question_num}}</p>
     <span class="mr-2">작성 댓글</span><p class="pr-1 font-weight-bold">{{answer_num}}</p>
+  </div>
+    <div class="row mb-5 px-2">
+    <span class="mr-1"><b>HY-WORLD</b> 와 함께한 </span><i class="fas fa-calendar pr-2"></i> <p class="pr-2 font-weight-bold"> {{ spent_time }}일</p>
   </div>
   <section class="activity-long">
     <div class="container">

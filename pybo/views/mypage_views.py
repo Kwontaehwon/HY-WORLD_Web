@@ -47,6 +47,8 @@ def mypage():
         num += 1
         vote += len(answer.voter)
     answer_num = num
+    spent_time = (datetime.datetime.now() - user.signup_date)
+    spent_days = spent_time.days
 
     return render_template('mypage/mypage.html', user=user, question_list=question_list, answer_list=answer_list,
-                           vote=vote, question_num=question_num, answer_num=answer_num)
+                           vote=vote, question_num=question_num, answer_num=answer_num, spent_time=spent_days)

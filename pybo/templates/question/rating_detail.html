@@ -19,12 +19,12 @@
             {{category}}
         </span>
     </div>
-    <div class="badge badge-pill badge-warning p-2 text-center align-self-center align-middle center-block"  style="font-size: 12px;  color : #8c6239; background-color: #ffde55; min-width: 140px;  vertical-align: center">
+    <div class="badge badge-pill badge-warning p-2 my-1 text-center align-self-center align-middle center-block"  style="font-size: 12px;  color : #8c6239; background-color: #ffde55; min-width: 140px;  vertical-align: center">
         <span>
             {{ question.rating_set[0].professor }} 교수님
         </span>
     </div>
-    <div class="badge badge-pill badge-warning p-2 text-center align-self-center align-middle center-block"  style="font-size: 12px ; color : #8c6239; background-color: #ffde55; min-width: 140px;">
+    <div class="badge badge-pill badge-warning p-2 text-center align-self-center align-middle center-block my-1"  style="font-size: 12px ; color : #8c6239; background-color: #ffde55; min-width: 140px;">
         <span>
             {{ question.rating_set[0].department.department_name}}
             {% if question.rating_set[0].is_major %}
@@ -34,18 +34,13 @@
             {% endif %}
         </span>
     </div>
-    <div class="badge badge-pill badge-warning p-2 text-center align-self-center align-middle center-block"  style="font-size: 12px ; color : #8c6239; background-color: #ffde55; min-width: 140px;">
+    <div class="badge badge-pill badge-warning p-2 text-center align-self-center align-middle center-block my-1"  style="font-size: 12px ; color : #8c6239; background-color: #ffde55; min-width: 140px;">
         <span>
             {{ question.rating_set[0].semester.semester_name}}
         </span>
     </div>
     <div class="row my-3">
-        <div class="col-1"> <!-- 추천영역 -->
-            <div class="bg-light text-center p-3 border font-weight-bolder mb-1">{{ question.voter|length }}</div>
-            <a href="#" data-uri="{{ url_for('vote.question', question_id=question.id) }}"
-               class="recommend btn btn-sm btn-secondary btn-block my-1">추천</a>
-        </div>
-        <div class="col-11"> <!-- 질문영역 -->
+        <div class="col-12"> <!-- 질문영역 -->
             <div class="card">
                 <div class="card-body">
                     <div class="card-text">{{ question.content|markdown }}</div>
@@ -58,9 +53,8 @@
                     <div class="d-flex justify-content-between my-2">
                         <div class="my-1">
                             <ul class="list-group list-group-horizontal" >
-                                <li><i class="fas fa-solid fa-thumbs-up  "  style="color: #ffa300"> {{ question.voter|length }}</i></li>
+                                <li><i class="fas fa-solid fa-thumbs-up"  style="color: #ffa300"> {{ question.voter|length }}</i></li>
                               <li><i class="fas fa-solid fa-comment px-4" style="color: #ffde55;"> {{ question.answer_set|length }}</i></li>
-
                             </ul>
                         </div>
                         <div class="my-1">
@@ -81,12 +75,7 @@
     {% for answer in question.answer_set %}
     <a name="answer_{{ answer.id }}"></a>
     <div class="row my-3">
-        <div class="col-1">  <!-- 추천영역 -->
-            <div class="bg-light text-center p-3 border font-weight-bolder mb-1">{{ answer.voter|length }}</div>
-            <a href="#" data-uri="{{ url_for('vote.answer', answer_id=answer.id) }}"
-                class="recommend btn btn-sm btn-secondary btn-block my-1">추천</a>
-        </div>
-        <div class="col-11">  <!-- 답변영역 -->
+        <div class="col-12">  <!-- 답변영역 -->
             <div class="card">
                 <div class="card-body" >
                     <div class="card-text" style="white-space: pre-line;">{{ answer.content|markdown }}</div>
@@ -197,7 +186,14 @@ $(document).ready(function(){
 <script src="{{ url_for('static', filename='simplemde.min.js') }}"></script>
 <link rel="stylesheet" href="{{ url_for('static', filename='simplemde.min.css') }}">
 <script>
+    var filter = "win16|win32|win64|macintel|mac|"; // PC일 경우 가능한 값
+    if( navigator.platform) {
+         if( filter.indexOf(navigator.platform.toLowerCase())<0 ) {
 
-    var simplemde = new SimpleMDE({element: document.getElementById("content"), spellChecker: false});
+         }
+         else {
+               var simplemde = new SimpleMDE({element: document.getElementById("content"), spellChecker: false});
+         }
+    }
 </script>
 {% endblock %}
