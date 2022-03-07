@@ -28,8 +28,9 @@ def environments():
     answer_list = []
     for question in question_list:
         date_diff = (datetime.datetime.now() - question.create_date)
-        if date_diff < datetime.timedelta(days=7) and num < 4:
+        if date_diff < datetime.timedelta(days=7) and num < 5:
             answer_list.append(question)
+            num += 1
     json_list = []
     for answer in answer_list:
         json_list.append(answer.subject)

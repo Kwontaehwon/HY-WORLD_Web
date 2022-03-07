@@ -6,5 +6,5 @@ def format_datetime(value):
     if value.year == today.year:
         fmt = '%m/%d %H:%M'
     else :
-        fmt = '%Y년 %m월 %d일 %H:%M'
+        fmt = '%Y/%m/%d'
     return value.strftime(fmt)
