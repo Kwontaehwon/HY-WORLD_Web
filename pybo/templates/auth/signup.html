@@ -4,7 +4,7 @@
     <div class="container">
     <div class="row d-flex justify-content-end mt-4 sign">
       <p class="pr-2 mb-0 align-self-center">이미 계정이 있으신가요?</p>
-      <a href="sign-in.html" class="text-body">로그인</a>
+      <a href="{{ url_for('auth.login') }}" class="text-body">로그인</a>
     </div>
       <div class="form col-8 mx-auto">
       <a href="{{ url_for('main.hello')}}"><img src="{{ url_for('static', filename='img/logo.png') }}" class="img-fluid" style="width: 200px"></a>

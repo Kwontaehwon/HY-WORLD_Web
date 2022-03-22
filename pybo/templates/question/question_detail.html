@@ -60,6 +60,10 @@
                         {% if g.user != question.user %}
                             <a href="{{ url_for('vote.question', question_id=question.id) }}"
                                class="recommend btn btn-warning" style="background-color: #ffc009; color:white">추천</a>
+                        {% elif question.is_favor == True and question.favor_set[0].resolve_answer_id != None %}
+                            <div class="badge badge-warning text-center" style="vertical-align: middle; width: 65px; background-color: #ffa300">
+                                    <div class="my-2" >채택 완료</div>
+                             </div>
                         {% else %}
                             <a href="{{ url_for('question.modify', question_id=question.id) }}"
                                class="btn btn-sm btn-outline-secondary">수정</a>
@@ -119,6 +123,8 @@
                                 <a href="#" data-uri="{{ url_for('vote.resolve', answer_id=answer.id) }}"
                                     class="resolve btn btn-warning" style="background-color: #ffa300; color: white;">채택</a>
                             {% endif %}
+                        {% elif question.is_favor == True and question.favor_set[0].resolve_answer_id != None %}
+
                         {% else %}
                             <a href="{{ url_for('answer.modify', answer_id=answer.id) }}"
                                 class="btn btn-sm btn-outline-secondary">수정</a>
